@@ -1,0 +1,34 @@
+﻿<Window x:Class="LightningMarks.Windows.Teacher_Total_Mark_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LightningMarks.Windows"
+        mc:Ignorable="d"
+        Title="Teacher_Total_Mark_Window" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <DataGrid x:Name="Total_Marks_DataGrid" Margin="0,0,519,466">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding AVGMark}"        Header="Оценка"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="Average_Mark_button"    Content="Средняя оценка"                HorizontalAlignment="Left" Margin="852,264,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Average_Mark_button_Click"/>
+        <Button x:Name="Total_Mark_Button"      Content="Кумулятивная итоговая оценка"  HorizontalAlignment="Left" Margin="852,304,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Total_Mark_Button_Click"/>
+        <Button x:Name="Exit"                   Content="Назад"                         HorizontalAlignment="Left" Margin="852,344,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Exit_Click" Cursor="Hand" />
+
+        <ComboBox x:Name="Name_Group_ComboBox"  HorizontalAlignment="Left" Margin="852,198,0,0" VerticalAlignment="Top" Width="256"/>
+        <ComboBox x:Name="DisciplineCombobox"   HorizontalAlignment="Left" Margin="852,233,0,0" VerticalAlignment="Top" Width="256"/>
+        <ComboBox x:Name="Control_work"         HorizontalAlignment="Left" Margin="852,10,0,0"  VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Practice_Work"        HorizontalAlignment="Left" Margin="852,60,0,0"  VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Test"                 HorizontalAlignment="Left" Margin="852,110,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Questions"            HorizontalAlignment="Left" Margin="852,160,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <CheckBox x:Name="ControlCheckBox"  Content="Контрольная работа"  HorizontalAlignment="Left" Margin="977,10,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="PracticeCheckBox" Content="Практическая работа" HorizontalAlignment="Left" Margin="977,60,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="TestCheckBox"     Content="Тест"                HorizontalAlignment="Left" Margin="977,110,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="QuestionCheckBox"  Content="Опрос"               HorizontalAlignment="Left" Margin="977,160,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+    </Grid>
+</Window>

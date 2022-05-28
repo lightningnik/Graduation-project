@@ -1,0 +1,20 @@
+﻿<Window x:Class="LightningMarks.Windows.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LightningMarks.Windows"
+        mc:Ignorable="d"
+        Title="AdminPage" Height="800" Width="1400" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Frame x:Name="MainFrame" Margin="0,0,0,0" NavigationUIVisibility="Hidden">
+        </Frame>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="1366">
+            <MenuItem   x:Name="Update_Students"   Header="Студенты"   Click="Update_Students_Click"    Height="24"/>
+            <MenuItem   x:Name="Update_Discplines" Header="Дисциплины" Click="Update_Discplines_Click"  Height="24"/>
+            <MenuItem   x:Name="Update_Employees"  Header="Сотрудники" Click="Update_Employees_Click"   Height="24"/>
+            <MenuItem   x:Name="Update_Marks"      Header="Оценки"     Click="Update_Marks_Click"       Height="24"/>
+            <MenuItem   x:Name="Exit"              Header="Выход"      Click="Exit_Click"               Height="24"/>
+        </Menu>
+    </Grid>
+</Window>
