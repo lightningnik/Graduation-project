@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Teacher_Total_Mark_Window" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <DataGrid x:Name="Total_Marks_DataGrid" Margin="0,0,519,466">
+        <DataGrid x:Name="Total_Marks_DataGrid" Margin="0,0,519,376">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
                 <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
-                <DataGridTextColumn Binding="{Binding AVGMark}"        Header="Оценка"/>
+                <DataGridTextColumn Binding="{Binding TotalMark}"   Header="Оценка"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="Average_Mark_button"    Content="Средняя оценка"                HorizontalAlignment="Left" Margin="852,264,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Average_Mark_button_Click"/>

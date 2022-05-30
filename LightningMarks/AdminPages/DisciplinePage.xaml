@@ -1,14 +1,29 @@
-﻿<Page x:Class="LightningMarks.AdminPages.DisciplinePage"
+﻿<Page x:Class="LightningMarks.DisciplinePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LightningMarks.AdminPages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="DisciplinePage">
+      xmlns:local="clr-namespace:LightningMarks"
+      mc:Ignorable="d"
+      Title="DisciplinePage" Width="1366"  Height="800">
 
     <Grid>
-        
+        <DataGrid x:Name="DiscplineDataGrid" Margin="0,30,0,0" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" 
+                  CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False" IsReadOnly="True" Width="507" 
+                  Height="482" FontFamily="Times New Roman" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" AutoGenerateColumns="False" SelectionChanged="DiscplineDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Discipline_id}"   Header="ID"/>
+                <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="NameDisp" HorizontalAlignment="Left" Margin="515,62,0,0" TextWrapping="Wrap" Text="Название дисциплины" VerticalAlignment="Top" Width="278" GotFocus="Name_GotFocus" LostFocus="Name_LostFocus" Background="White"/>
+        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="515,32,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="278" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus" Background="White" Cursor="Arrow"/>
+
+        <Button x:Name="Add_Discipline_Button" Content="Добавить"      HorizontalAlignment="Left" Margin="515,95,0,0"  VerticalAlignment="Top" Width="164" Click="Add_Discipline_Button_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Upd_Discipline_Button" Content="Обновить"      HorizontalAlignment="Left" Margin="515,135,0,0" VerticalAlignment="Top" Width="164" Click="Upd_Discipline_Button_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Del_Discipline_Button" Content="Удалить"       HorizontalAlignment="Left" Margin="515,175,0,0" VerticalAlignment="Top" Width="164" Click="Del_Discipline_Button_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Clear"                 Content="Очистить поля" HorizontalAlignment="Left" Margin="515,215,0,0" VerticalAlignment="Top" Width="164" Click="Clear_Click"                  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+
     </Grid>
 </Page>
