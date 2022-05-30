@@ -19,7 +19,16 @@
                 <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MarksDataGrid"  Width="1366" Height="256" Margin="0,323,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="MarksDataGrid_SelectionChanged"/>
+        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"                          Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата"/>
+                <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценка"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
 
         <TextBox x:Name="ID_Student" HorizontalAlignment="Left"     Margin="10,584,0,0" TextWrapping="Wrap" Text="ID студента" VerticalAlignment="Top" Width="120" GotFocus="ID_Student_GotFocus" LostFocus="ID_Student_LostFocus"/>
         <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"     Margin="136,584,0,0" TextWrapping="Wrap" Text="ID дисциплины" VerticalAlignment="Top" Width="120" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
