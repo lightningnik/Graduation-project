@@ -45,8 +45,8 @@
         <Button x:Name="TotalMark"          Background="#87004B" BorderBrush="#87004B" Content="Кумулятивные оценки"    HorizontalAlignment="Center" Margin="0,671,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="TotalMark_Click" Width="184" Cursor="Hand"/>
 
 
-        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="545,256,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="Name_Discipline"  HorizontalAlignment="Left" Margin="670,256,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Name_Discipline_SelectionChanged"/>
+        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="545,256,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Name_Group_SelectionChanged"/>
+        <ComboBox x:Name="Name_Discipline"  HorizontalAlignment="Left" Margin="670,256,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="MarkComboBox"     HorizontalAlignment="Left" Margin="266,584,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem >2</ComboBoxItem>
             <ComboBoxItem >3</ComboBoxItem>
