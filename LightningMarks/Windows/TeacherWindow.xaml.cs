@@ -59,6 +59,7 @@ namespace LightningMarks.Windows
             {
                 Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
             }
+            Manager.connection.Close();
         }
 
         private void Set_Mark_Click(object sender, RoutedEventArgs e)

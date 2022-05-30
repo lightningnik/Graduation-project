@@ -79,12 +79,14 @@ namespace LightningMarks
                         AdminWindow adminWindow = new AdminWindow();
                         adminWindow.Show();
                         this.Close();
+                        Manager.connection.Close();
                     }
                     else
                     {
                         TeacherWindow teacherWindow = new TeacherWindow();
                         teacherWindow.Show();
                         this.Close();
+                        Manager.connection.Close();
                     }
                 }
                 else Notify.Content = "Сообщение: Проверьте правильность вводимых данных";
