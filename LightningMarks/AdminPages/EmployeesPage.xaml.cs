@@ -220,7 +220,7 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addLesson = "INSERT INTO dbo.Lessons VALUES (@Emp_id_param, @Disp_id_param, @Group_id_param)";
+                string addLesson = "INSERT INTO dbo.Lessons VALUES (@Group_id_param, @Emp_id_param, @Disp_id_param)";
                 SqlCommand cmd = new SqlCommand(addLesson, Manager.connection);
                 SqlParameter Emp_id_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
                 cmd.Parameters.Add(Emp_id_param);
@@ -419,9 +419,9 @@ namespace LightningMarks
 
         private void ID_Discipline_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ID.Text == "ID Дисциплины")
+            if (ID_Discipline.Text == "ID Дисциплины")
             {
-                ID.Text = "";
+                ID_Discipline.Text = "";
             }
         }
 

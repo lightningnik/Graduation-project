@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LightningMarks"
       mc:Ignorable="d" d:DesignWidth="1366"
-      Title="EmployeesPage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="800">
+      Title="EmployeesPage" VerticalAlignment="Top" HorizontalAlignment="Left" Height="856">
 
-    <Grid VerticalAlignment="Center" Height="800">
+    <Grid VerticalAlignment="Center" Height="836">
         <DataGrid x:Name="EmpDataGrid"          Margin="0,30,0,0"  VerticalScrollBarVisibility="Hidden" 
                   CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="305" 
                   Focusable="False" IsReadOnly="True" SelectionChanged="EmpDataGrid_SelectionChanged" Width="1044" FontFamily="Times New Roman" 
@@ -50,6 +50,7 @@
         <TextBox x:Name="ID"                    Margin="0,555,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID записи"        GotFocus="ID_GotFocus"                  LostFocus="ID_LostFocus" />
         <TextBox x:Name="Employee_ID_Textbox"   Margin="145,555,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID сотрудника"    GotFocus="Employee_ID_Textbox_GotFocus" LostFocus="Employee_ID_Textbox_LostFocus"   />
         <TextBox x:Name="Group_id" HorizontalAlignment="Left" Margin="290,555,0,0" TextWrapping="Wrap" Text="ID группы" VerticalAlignment="Top" Width="120" Height="24" LostFocus="Group_id_LostFocus" GotFocus="Group_id_GotFocus" Cursor="Arrow"/>
+        <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left" Margin="415,555,0,0" TextWrapping="Wrap" Text="ID Дисциплины" VerticalAlignment="Top" Width="120" Height="24" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
 
         <ComboBox x:Name="Role_ComboBox"        HorizontalAlignment="Left" Margin="1111,335,0,0"  VerticalAlignment="Top" Width="120" Height="24" Text="Роль" >
             <TextBlock>Преподаватель</TextBlock>
@@ -69,7 +70,6 @@
 
 
         <DatePicker x:Name="DOB" HorizontalAlignment="Left" Margin="986,335,0,0" VerticalAlignment="Top" Width="120" Height="24" />
-        <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left" Margin="415,555,0,0" TextWrapping="Wrap" Text="ID Дисциплины" VerticalAlignment="Top" Width="120" Height="24" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
         <DataGrid x:Name="GroupDataGrid"  Margin="0,584,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="285"
                   VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" Focusable="False" IsReadOnly="True"

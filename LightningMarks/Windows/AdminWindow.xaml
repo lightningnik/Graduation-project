@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LightningMarks.Windows"
         mc:Ignorable="d"
-        Title="AdminPage" Height="800" Width="1400" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="AdminPage" Height="856" Width="1400" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame x:Name="MainFrame" Margin="0,0,0,0" NavigationUIVisibility="Hidden">
         </Frame>
@@ -13,7 +13,6 @@
             <MenuItem   x:Name="Update_Students"   Header="Студенты"   Click="Update_Students_Click"    Height="24"/>
             <MenuItem   x:Name="Update_Discplines" Header="Дисциплины" Click="Update_Discplines_Click"  Height="24"/>
             <MenuItem   x:Name="Update_Employees"  Header="Сотрудники" Click="Update_Employees_Click"   Height="24"/>
-            <MenuItem   x:Name="Update_Marks"      Header="Оценки"     Click="Update_Marks_Click"       Height="24"/>
             <MenuItem   x:Name="Exit"              Header="Выход"      Click="Exit_Click"               Height="24"/>
         </Menu>
     </Grid>

@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBox     x:Name="Login"    HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Text="nestor.artemev@example.net"    Background="White" Width="490"/>
-        <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Password="IzzOGBTPk6w7MDI" Background="White" Width="492"/>
+        <TextBox     x:Name="Login"    HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Text="paksenova@example.com"    Background="White" Width="490"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Password="jR3xQSZEwgIkZGxPi" Background="White" Width="492"/>
 
         <Button x:Name="Authorize_Button" Content="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Top" Width="490" Margin="0,271,0,0"  Click="Authorize_Button_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
         <Button x:Name="Hint_Button"      Content="Подсказка"   HorizontalAlignment="Center" VerticalAlignment="Top" Width="490" Margin="0,237,0,0"  Click="Hint_Button_Click"      Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
