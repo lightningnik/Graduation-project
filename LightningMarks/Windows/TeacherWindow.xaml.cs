@@ -25,9 +25,20 @@ namespace LightningMarks.Windows
         {
             InitializeComponent();
             FillComboBox();
+            FillDataGrid();
         }
 
-        private void FillComboBox()
+        private void FillDataGrid()
+        {
+            string TypeWorkString = "SELECT * FROM Work_Types";
+            SqlCommand wrk = new SqlCommand(TypeWorkString, Manager.connection);
+            SqlDataAdapter wrk_sda = new SqlDataAdapter(wrk);
+            DataTable wrk_dt = new DataTable("Work_Types");
+            wrk_sda.Fill(wrk_dt);
+            Type_work.ItemsSource = wrk_dt.DefaultView;
+        }
+
+            private void FillComboBox()
         {
             Manager.connection.Close(); // КОСТЫЛЬ!!! Без этой строки выдает ошибку, что подключение не закрыто,
             // при закртытии подключения на странице StartPage
@@ -46,19 +57,19 @@ namespace LightningMarks.Windows
                 Name_Group.Items.Add(dt.Rows[i]["Name_Group"].ToString());
             }
 
-            //string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline " +
-            //    "FROM dbo.Lessons INNER JOIN " +
-            //    "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id WHERE Employee_id = @my_id");
-            //SqlCommand disp = new SqlCommand(DispString, Manager.connection);
-            //disp.Parameters.Add("@my_id", SqlDbType.Int);
-            //disp.Parameters["@my_id"].Value = Manager.my_id;
-            //SqlDataAdapter disp_da = new SqlDataAdapter(disp);
-            //DataTable disp_dt = new DataTable();
-            //disp_da.Fill(disp_dt);
-            //for (int i = 0; i < disp_dt.Rows.Count; i++)
-            //{
-            //    Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
-            //}
+            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline " +
+                "FROM dbo.Lessons INNER JOIN " +
+                "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id WHERE Employee_id = @my_id");
+            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
+            disp.Parameters.Add("@my_id", SqlDbType.Int);
+            disp.Parameters["@my_id"].Value = Manager.my_id;
+            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
+            DataTable disp_dt = new DataTable();
+            disp_da.Fill(disp_dt);
+            for (int i = 0; i < disp_dt.Rows.Count; i++)
+            {
+                Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
+            }
             Manager.connection.Close();
         }
 
@@ -67,8 +78,10 @@ namespace LightningMarks.Windows
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id, @Lesson_id, @Mark, @Date)";
+                string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id,@WorkType, @Lesson_id, @Mark, @Date)";
                 SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
+                SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
+                cmd.Parameters.Add(Work_param);
                 SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
                 cmd.Parameters.Add(Student_id_param);
                 SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
@@ -91,12 +104,14 @@ namespace LightningMarks.Windows
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id, dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date WHERE (dbo.Marks.ID = @ID)";
+                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id,dbo.Marks.Type_work_id = @WorkType ,dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date WHERE (dbo.Marks.Mark_id = @ID)";
                 SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
                 SqlParameter ID_param = new SqlParameter("@ID", ID.Text);
                 cmd.Parameters.Add(ID_param);
                 SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
                 cmd.Parameters.Add(Student_id_param);
+                SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
+                cmd.Parameters.Add(Work_param);
                 SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
                 cmd.Parameters.Add(Lesson_id_param);
                 SqlParameter Mark_param = new SqlParameter("@Mark", MarkComboBox.Text);
@@ -117,7 +132,7 @@ namespace LightningMarks.Windows
             try
             {
                 Manager.connection.Open();
-                string addEmp = "DELETE FROM dbo.Marks WHERE ID = @ID";
+                string addEmp = "DELETE FROM dbo.Marks WHERE Mark_id = @ID";
                 SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
                 SqlParameter ID_param = new SqlParameter("@ID", ID.Text);
                 cmd.Parameters.Add(ID_param);
@@ -218,9 +233,19 @@ namespace LightningMarks.Windows
             {
                 ID_Student.Text = row_selected["Student_id"].ToString();
                 ID_Discipline.Text = row_selected["Lesson_id"].ToString();
-                ID.Text = row_selected["ID"].ToString();
+                ID.Text = row_selected["Mark_id"].ToString();
+                Work_ID.Text = row_selected["Type_work_id"].ToString();
                 MarkComboBox.Text = row_selected["Mark"].ToString();
                 Date.SelectedDate = (System.DateTime)row_selected["Date"];
+            }
+        }
+        private void Type_work_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid gd = (DataGrid)sender;
+            DataRowView row_selected = gd.SelectedItem as DataRowView;
+            if (row_selected != null)
+            {
+                Work_ID.Text = row_selected["Type_id"].ToString();
             }
         }
 
@@ -259,21 +284,34 @@ namespace LightningMarks.Windows
             disp_sda.Fill(disp_dt);
             DisciplineDataGrid.ItemsSource = disp_dt.DefaultView;
 
-
-            string MrkString = "SELECT * " +
-                "FROM dbo.Mark_Upd WHERE dbo.Mark_Upd.Name_Group = @Name_mrk_Group AND dbo.Mark_Upd.Name_Discipline = @Name_Discipline_mrk";
-            SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
-            mrk.Parameters.Add("@myid", SqlDbType.Int);
-            mrk.Parameters["@myid"].Value = Manager.my_id;
-            SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group.Text);
-            mrk.Parameters.Add(Name_Group_mrk_param);
-            SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", Name_Discipline.Text);
-            mrk.Parameters.Add(Name_Disicpiline_mrk_param);
-            mrk.ExecuteNonQuery();
-            SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
-            DataTable mrk_dt = new DataTable("Mark_Upd");
-            mrk_sda.Fill(mrk_dt);
-            MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
+            if (TypeofOutputComboBox.Text == "Подробный вывод") {
+                string MrkString = "SELECT * " +
+                    "FROM dbo.Mark_Upd WHERE dbo.Mark_Upd.Name_Group = @Name_mrk_Group AND dbo.Mark_Upd.Name_Discipline = @Name_Discipline_mrk";
+                SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
+                SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group.Text);
+                mrk.Parameters.Add(Name_Group_mrk_param);
+                SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", Name_Discipline.Text);
+                mrk.Parameters.Add(Name_Disicpiline_mrk_param);
+                mrk.ExecuteNonQuery();
+                SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
+                DataTable mrk_dt = new DataTable("Mark_Upd");
+                mrk_sda.Fill(mrk_dt);
+                MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
+            }
+            else
+            {
+                string MrkString = "SELECT  [Фамилия],[Имя],[Отчество],[Список оценок] FROM [Evaluations].[dbo].[EasyOutput] WHERE Name_Group = @Name_mrk_Group AND Name_Discipline = @Name_Discipline_mrk ";
+                SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
+                SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group.Text);
+                mrk.Parameters.Add(Name_Group_mrk_param);
+                SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", Name_Discipline.Text);
+                mrk.Parameters.Add(Name_Disicpiline_mrk_param);
+                mrk.ExecuteNonQuery();
+                SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
+                DataTable mrk_dt = new DataTable("Mark_Upd");
+                mrk_sda.Fill(mrk_dt);
+                MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
+            }
 
             Manager.connection.Close();
         }
@@ -283,26 +321,6 @@ namespace LightningMarks.Windows
             Teacher_Total_Mark_Window totalWindow = new Teacher_Total_Mark_Window();
             totalWindow.Show();
             this.Close();
-        }
-
-         private void Name_Group_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
-               "FROM dbo.Lessons INNER JOIN " +
-               "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-               "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND dbo.Groups.Name_Group = @NameGroup");
-            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
-            disp.Parameters.Add("@my_id", SqlDbType.Int);
-            disp.Parameters["@my_id"].Value = Manager.my_id;
-            SqlParameter Name_Group_param = new SqlParameter("@NameGroup", Name_Group.Text);
-            disp.Parameters.Add(Name_Group_param);
-            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
-            DataTable disp_dt = new DataTable();
-            disp_da.Fill(disp_dt);
-            for (int i = 0; i < disp_dt.Rows.Count; i++)
-            {
-                Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
-            }
         }
     }
 }

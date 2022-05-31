@@ -19,7 +19,7 @@
         <Button x:Name="Total_Mark_Button"      Content="Кумулятивная итоговая оценка"  HorizontalAlignment="Left" Margin="852,304,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Total_Mark_Button_Click"/>
         <Button x:Name="Exit"                   Content="Назад"                         HorizontalAlignment="Left" Margin="852,344,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Exit_Click" Cursor="Hand" />
 
-        <ComboBox x:Name="Name_Group_ComboBox"  HorizontalAlignment="Left" Margin="852,198,0,0" VerticalAlignment="Top" Width="256"/>
+        <ComboBox x:Name="Name_Group_ComboBox"  HorizontalAlignment="Left" Margin="852,198,0,0" VerticalAlignment="Top" Width="256" SelectionChanged="Name_Group_ComboBox_SelectionChanged" />
         <ComboBox x:Name="DisciplineCombobox"   HorizontalAlignment="Left" Margin="852,233,0,0" VerticalAlignment="Top" Width="256"/>
         <ComboBox x:Name="Control_work"         HorizontalAlignment="Left" Margin="852,10,0,0"  VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="Practice_Work"        HorizontalAlignment="Left" Margin="852,60,0,0"  VerticalAlignment="Top" Width="120"/>

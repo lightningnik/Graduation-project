@@ -14,44 +14,46 @@
                 <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="DisciplineDataGrid"  Width="683"  Height="256" Margin="683,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="DisciplineDataGrid_SelectionChanged">
+        <DataGrid x:Name="DisciplineDataGrid"  Width="382"  Height="256" Margin="683,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="DisciplineDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+        <DataGrid x:Name="Type_work" Margin="1065,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" Height="256" Width="301" SelectionChanged="Type_work_SelectionChanged" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
-                <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
-                <DataGridTextColumn Binding="{Binding Patronymic}"                          Header="Отчество"/>
-                <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата"/>
-                <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценка"/>
+                <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
             </DataGrid.Columns>
         </DataGrid>
 
+        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" SelectionChanged="MarksDataGrid_SelectionChanged"/>
 
         <TextBox x:Name="ID_Student" HorizontalAlignment="Left"     Margin="10,584,0,0" TextWrapping="Wrap" Text="ID студента" VerticalAlignment="Top" Width="120" GotFocus="ID_Student_GotFocus" LostFocus="ID_Student_LostFocus"/>
         <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"     Margin="136,584,0,0" TextWrapping="Wrap" Text="ID дисциплины" VerticalAlignment="Top" Width="120" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
-        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="526,584,0,0" TextWrapping="Wrap" Text="ID записи" VerticalAlignment="Top" Width="120" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus"/>
+        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="654,584,0,0" TextWrapping="Wrap" Text="ID записи" VerticalAlignment="Top" Width="120" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus"/>
+        <TextBox x:Name="Work_ID" HorizontalAlignment="Left" Margin="529,584,0,0" TextWrapping="Wrap" Text="Тип работы" VerticalAlignment="Top" Width="120"/>
 
         <DatePicker x:Name="Date" HorizontalAlignment="Left"  Margin="396,584,0,0" VerticalAlignment="Top" Width="128"/>
 
-        <Button Content="Вывести данные"    Background="#87004B" BorderBrush="#87004B" HorizontalAlignment="Center" Margin="0,286,0,0" VerticalAlignment="Top" Width="276" Click="OutputButton_Click"/>
-        <Button x:Name="Set_Mark"           Background="#87004B" BorderBrush="#87004B" Content="Добавить"               HorizontalAlignment="Left" Margin="6,614,0,0"   VerticalAlignment="Top" Width="124" Click="Set_Mark_Click"/>
-        <Button x:Name="Upd_Mark"           Background="#87004B" BorderBrush="#87004B" Content="Обновить"               HorizontalAlignment="Left" Margin="136,614,0,0" VerticalAlignment="Top" Width="120" Click="Upd_Mark_Click"/>
-        <Button x:Name="Del_Marks"          Background="#87004B" BorderBrush="#87004B" Content="Удалить"                HorizontalAlignment="Left" Margin="266,614,0,0" VerticalAlignment="Top" Width="120" Click="Del_Marks_Click"/>
-        <Button x:Name="Search"             Background="#87004B" BorderBrush="#87004B" Content="Поиск"                  HorizontalAlignment="Left" Margin="396,614,0,0" VerticalAlignment="Top" Width="128" Click="Search_Click"/>
-        <Button x:Name="Exit"               Background="#87004B" BorderBrush="#87004B" Content="Выход"                  HorizontalAlignment="Center" Margin="0,708,0,0" VerticalAlignment="Top" Width="184" Click="Exit_Click"/>
-        <Button x:Name="TotalMark"          Background="#87004B" BorderBrush="#87004B" Content="Кумулятивные оценки"    HorizontalAlignment="Center" Margin="0,671,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="TotalMark_Click" Width="184" Cursor="Hand"/>
+        <Button x:Name="Output"             Background="#87004B" BorderBrush="#87004B" Content="Вывести данные" HorizontalAlignment="Center"    Margin="0,286,0,0"      VerticalAlignment="Top" Width="662" Click="OutputButton_Click"/>
+        <Button x:Name="Set_Mark"           Background="#87004B" BorderBrush="#87004B" Content="Добавить"       HorizontalAlignment="Left"      Margin="6,614,0,0"      VerticalAlignment="Top" Width="124" Click="Set_Mark_Click"/>
+        <Button x:Name="Upd_Mark"           Background="#87004B" BorderBrush="#87004B" Content="Обновить"       HorizontalAlignment="Left"      Margin="136,614,0,0"    VerticalAlignment="Top" Width="120" Click="Upd_Mark_Click"/>
+        <Button x:Name="Del_Marks"          Background="#87004B" BorderBrush="#87004B" Content="Удалить"        HorizontalAlignment="Left"      Margin="266,614,0,0"    VerticalAlignment="Top" Width="120" Click="Del_Marks_Click"/>
+        <Button x:Name="Search"             Background="#87004B" BorderBrush="#87004B" Content="Поиск"          HorizontalAlignment="Left"      Margin="396,614,0,0"    VerticalAlignment="Top" Width="128" Click="Search_Click"/>
+        <Button x:Name="Exit"               Background="#87004B" BorderBrush="#87004B" Content="Выход"          HorizontalAlignment="Center"    Margin="0,708,0,0"      VerticalAlignment="Top" Width="184" Click="Exit_Click"/>
+        <Button x:Name="TotalMark"          Background="#87004B" BorderBrush="#87004B" Content="Итоги"          HorizontalAlignment="Center"    Margin="0,671,0,0"      VerticalAlignment="Top" Width="184" Click="TotalMark_Click"/>
 
 
-        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="545,256,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Name_Group_SelectionChanged"/>
-        <ComboBox x:Name="Name_Discipline"  HorizontalAlignment="Left" Margin="670,256,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="445,256,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Name_Discipline"  HorizontalAlignment="Left" Margin="570,256,0,0" VerticalAlignment="Top" Width="204"/>
         <ComboBox x:Name="MarkComboBox"     HorizontalAlignment="Left" Margin="266,584,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem >2</ComboBoxItem>
             <ComboBoxItem >3</ComboBoxItem>
             <ComboBoxItem >4</ComboBoxItem>
             <ComboBoxItem >5</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="TypeofOutputComboBox" HorizontalAlignment="Left" Margin="779,256,0,0" VerticalAlignment="Top" Width="161">
+            <ComboBoxItem >Упрощенный вывод</ComboBoxItem>
+            <ComboBoxItem >Подробный вывод</ComboBoxItem>
         </ComboBox>
     </Grid>
 </Window>
