@@ -7,30 +7,38 @@
         mc:Ignorable="d"
         Title="TeacherWindow" Height="800" Width="1366" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="GroupListDataGrid"  Width="683"  Height="256" Margin="0,0,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="GroupListDataGrid_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
-                <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
-                <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
-            </DataGrid.Columns>
+        <DataGrid x:Name="GroupListDataGrid"    Width="683" Height="256" Margin="0,0,0,0"       HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="GroupListDataGrid_SelectionChanged">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
+            <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
+            <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
+        </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="DisciplineDataGrid"  Width="382"  Height="256" Margin="683,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="DisciplineDataGrid_SelectionChanged">
+        <DataGrid x:Name="DisciplineDataGrid"   Width="382" Height="256" Margin="683,0,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="DisciplineDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="Type_work" Margin="1065,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" Height="256" Width="301" SelectionChanged="Type_work_SelectionChanged" >
+        <DataGrid x:Name="Type_work"            Width="301" Height="256" Margin="1065,0,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="Type_work_SelectionChanged">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
+        </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="MarkDataGrid"                                  Margin="0,323,0,205"                                                      VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
+                <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"                          Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценка"/>
+                <DataGridTextColumn Binding="{Binding Date,StringFormat=\{0:dd.MM.yyyy\}}"  Header="Дата"/>
+                <DataGridTextColumn Binding="{Binding Work_Type}"                           Header="Тип работы"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" SelectionChanged="MarksDataGrid_SelectionChanged"/>
-
-        <TextBox x:Name="ID_Student" HorizontalAlignment="Left"     Margin="10,584,0,0" TextWrapping="Wrap" Text="ID студента" VerticalAlignment="Top" Width="120" GotFocus="ID_Student_GotFocus" LostFocus="ID_Student_LostFocus"/>
-        <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"     Margin="136,584,0,0" TextWrapping="Wrap" Text="ID дисциплины" VerticalAlignment="Top" Width="120" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
-        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="654,584,0,0" TextWrapping="Wrap" Text="ID записи" VerticalAlignment="Top" Width="120" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus"/>
-        <TextBox x:Name="Work_ID" HorizontalAlignment="Left" Margin="529,584,0,0" TextWrapping="Wrap" Text="Тип работы" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ID_Student"    HorizontalAlignment="Left"      Margin="10,584,0,0"  Text="ID студента"     VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"      Margin="136,584,0,0" Text="ID дисциплины"   VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="ID"            HorizontalAlignment="Left"      Margin="654,584,0,0" Text="ID записи"       VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="Work_ID"       HorizontalAlignment="Left"      Margin="529,584,0,0" Text="Тип работы"      VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
 
         <DatePicker x:Name="Date" HorizontalAlignment="Left"  Margin="396,584,0,0" VerticalAlignment="Top" Width="128"/>
 

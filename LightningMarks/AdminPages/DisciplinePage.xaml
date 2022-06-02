@@ -17,8 +17,8 @@
                 <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="NameDisp" HorizontalAlignment="Left" Margin="515,62,0,0" TextWrapping="Wrap" Text="Название дисциплины" VerticalAlignment="Top" Width="278" GotFocus="Name_GotFocus" LostFocus="Name_LostFocus" Background="White"/>
-        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="515,32,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="278" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus" Background="White" Cursor="Arrow"/>
+        <TextBox x:Name="NameDisp" HorizontalAlignment="Left" Margin="515,62,0,0" TextWrapping="Wrap" Text="Название дисциплины" VerticalAlignment="Top" Width="278" GotFocus="Name_GotFocus" LostFocus="Name_LostFocus" />
+        <TextBox x:Name="ID" HorizontalAlignment="Left" Margin="515,32,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="278" GotFocus="ID_GotFocus" LostFocus="ID_LostFocus" Cursor="Arrow"/>
 
         <Button x:Name="Add_Discipline_Button" Content="Добавить"      HorizontalAlignment="Left" Margin="515,95,0,0"  VerticalAlignment="Top" Width="164" Click="Add_Discipline_Button_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
         <Button x:Name="Upd_Discipline_Button" Content="Обновить"      HorizontalAlignment="Left" Margin="515,135,0,0" VerticalAlignment="Top" Width="164" Click="Upd_Discipline_Button_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>

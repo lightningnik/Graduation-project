@@ -28,6 +28,16 @@ namespace LightningMarks.Windows
             FillDataGrid();
         }
 
+        private void ClearFields()
+        {
+            ID_Student.Text = "ID студента";
+            ID_Discipline.Text = "ID дисциплины";
+            ID.Text = "ID записи";
+            Work_ID.Text = "Тип работы";
+            Date.SelectedDate = null;
+            MarkComboBox.SelectedIndex = -1;
+        }
+
         private void FillDataGrid()
         {
             string TypeWorkString = "SELECT * FROM Work_Types";
@@ -96,6 +106,7 @@ namespace LightningMarks.Windows
             {
                 MessageBox.Show(er.Number + " " + er.Message);
             }
+            ClearFields();
             Manager.connection.Close();
         }
 
@@ -124,6 +135,7 @@ namespace LightningMarks.Windows
             {
                 MessageBox.Show(er.Number + " " + er.Message);
             }
+            ClearFields();
             Manager.connection.Close();
         }
 
@@ -142,12 +154,27 @@ namespace LightningMarks.Windows
             {
                 MessageBox.Show(er.Number + " " + er.Message);
             }
+            ClearFields();
             Manager.connection.Close();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-
+            Manager.connection.Open();
+            string MrkString = "SELECT * " +
+                    "FROM dbo.Mark_Upd WHERE dbo.Mark_Upd.Name_Discipline = @Name_Discipline_mrk AND dbo.Mark_Upd.Student_id = @Student_id";
+            SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
+            SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", Name_Discipline.Text);
+            mrk.Parameters.Add(Name_Disicpiline_mrk_param);
+            SqlParameter Student_id__mrk_param = new SqlParameter("@Student_id", ID_Student.Text);
+            mrk.Parameters.Add(Student_id__mrk_param);
+            mrk.ExecuteNonQuery();
+            SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
+            DataTable mrk_dt = new DataTable("Mark_Upd");
+            mrk_sda.Fill(mrk_dt);
+            MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
+            ClearFields();
+            Manager.connection.Close();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -155,54 +182,6 @@ namespace LightningMarks.Windows
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
-        }
-
-        private void ID_Student_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Student.Text == "ID студента")
-            {
-                ID_Student.Text = "";
-            }
-        }
-
-        private void ID_Discipline_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Discipline.Text == "ID дисциплины")
-            {
-                ID_Discipline.Text = "";
-            }
-        }
-
-        private void ID_Student_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Student.Text == "")
-            {
-                ID_Student.Text = "ID студента";
-            }
-        }
-
-        private void ID_Discipline_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Discipline.Text == "")
-            {
-                ID_Discipline.Text = "ID дисциплины";
-            }
-        }
-
-        private void ID_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID.Text == "ID записи")
-            {
-                ID.Text = "";
-            }
-        }
-
-        private void ID_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID.Text == "")
-            {
-                ID.Text = "ID записи";
-            }
         }
 
         private void GroupListDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -227,16 +206,22 @@ namespace LightningMarks.Windows
 
         private void MarksDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            DataGrid gd = (DataGrid)sender;
-            DataRowView row_selected = gd.SelectedItem as DataRowView;
-            if (row_selected != null)
+            if (TypeofOutputComboBox.Text == "Подробный вывод") {
+                DataGrid gd = (DataGrid)sender;
+                DataRowView row_selected = gd.SelectedItem as DataRowView;
+                if (row_selected != null)
+                {
+                    ID_Student.Text = row_selected["Student_id"].ToString();
+                    ID_Discipline.Text = row_selected["Lesson_id"].ToString();
+                    ID.Text = row_selected["Mark_id"].ToString();
+                    Work_ID.Text = row_selected["Type_work_id"].ToString();
+                    MarkComboBox.Text = row_selected["Mark"].ToString();
+                    Date.SelectedDate = (System.DateTime)row_selected["Date"];
+                }
+            }
+            else
             {
-                ID_Student.Text = row_selected["Student_id"].ToString();
-                ID_Discipline.Text = row_selected["Lesson_id"].ToString();
-                ID.Text = row_selected["Mark_id"].ToString();
-                Work_ID.Text = row_selected["Type_work_id"].ToString();
-                MarkComboBox.Text = row_selected["Mark"].ToString();
-                Date.SelectedDate = (System.DateTime)row_selected["Date"];
+                MessageBox.Show("Для редактирования оценок сделайте подробный вывод");
             }
         }
         private void Type_work_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -298,9 +283,15 @@ namespace LightningMarks.Windows
                 mrk_sda.Fill(mrk_dt);
                 MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
             }
-            else
+            else if (TypeofOutputComboBox.Text == "Упрощенный вывод")
             {
-                string MrkString = "SELECT  [Фамилия],[Имя],[Отчество],[Список оценок] FROM [Evaluations].[dbo].[EasyOutput] WHERE Name_Group = @Name_mrk_Group AND Name_Discipline = @Name_Discipline_mrk ";
+                string MrkString = "SELECT        dbo.Students.Surname, dbo.Students.Name, dbo.Students.Patronymic, STRING_AGG(dbo.Marks.Mark, ' ') AS Mark, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline " +
+                    "FROM dbo.Marks INNER JOIN dbo.Students ON dbo.Marks.Student_id = dbo.Students.Student_id " +
+                    "INNER JOIN dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id " +
+                    "INNER JOIN dbo.Employees ON dbo.Lessons.Employee_id = dbo.Employees.Employee_id INNER JOIN " +
+                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id " +
+                    "INNER JOIN dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id " +
+                    "GROUP BY dbo.Students.Surname, dbo.Students.Name, dbo.Students.Patronymic, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline HAVING (Name_Group = @Name_mrk_Group AND Name_Discipline = @Name_Discipline_mrk)";
                 SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
                 SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group.Text);
                 mrk.Parameters.Add(Name_Group_mrk_param);

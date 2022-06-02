@@ -9,7 +9,7 @@
       Title="StudentPage">
 
     <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Height="768" Width="1366" Margin="0,-9,0,0">
-        <DataGrid x:Name="StudentsDataGrid"  Margin="10,37,0,0"   VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="332" Focusable="False" IsReadOnly="True"  CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="977" AutoGenerateColumns="False" FontFamily="Times New Roman" FontSize="10" SelectionChanged="StudentsDataGrid_SelectionChanged">
+        <DataGrid x:Name="StudentsDataGrid"  Margin="10,37,0,0"   VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="332" Focusable="False" IsReadOnly="True"  CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="977" AutoGenerateColumns="False" FontFamily="Times New Roman" SelectionChanged="StudentsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Student_id}"                                      Header="ID"/>
                 <DataGridTextColumn Binding="{Binding Surname}"                                         Header="Фамилия"/>
@@ -21,33 +21,33 @@
                 <DataGridTextColumn Binding="{Binding Password}"                                        Header="Пароль"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="GroupsDataGrid"    Margin="11,375,0,0"  VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="383" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="174" AutoGenerateColumns="False" FontFamily="Times New Roman" FontSize="10" SelectionChanged="GroupsDataGrid_SelectionChanged">
+        <DataGrid x:Name="GroupsDataGrid"    Margin="11,375,0,0"  VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="383" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="174" AutoGenerateColumns="False" FontFamily="Times New Roman" SelectionChanged="GroupsDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Group_id}"    Width="48"   Header="ID"/>
+                <DataGridTextColumn Binding="{Binding Group_id}"   Header="ID"/>
                 <DataGridTextColumn Binding="{Binding Name_Group}" Header="Группа"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="GroupListDataGrid" Margin="471,375,0,0" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="383" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="516" AutoGenerateColumns="False" FontFamily="Times New Roman" FontSize="10" SelectionChanged="GroupListDataGrid_SelectionChanged">
+        <DataGrid x:Name="GroupListDataGrid" Margin="471,375,0,0" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Height="383" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" Width="516" AutoGenerateColumns="False" FontFamily="Times New Roman" SelectionChanged="GroupListDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Student_id}"                                      Header="ID"/>
-                <DataGridTextColumn Binding="{Binding Surname}"                                         Header="Фамилия"/>
-                <DataGridTextColumn Binding="{Binding Name}"                                            Header="Имя"/>
-                <DataGridTextColumn Binding="{Binding Patronymic}"                                      Header="Отчество"/>
-                <DataGridTextColumn Binding="{Binding Name_Group}"                                      Header="Группа"/>
+                <DataGridTextColumn Binding="{Binding Student_id}"  Header="ID"/>
+                <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding Name_Group}"  Header="Группа"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="Surname_textBox"       Margin="995,37,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Фамилия"             GotFocus="Surname_textBox_GotFocus"        LostFocus="Surname_textBox_LostFocus" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Name_textBox"          Margin="995,61,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="Имя"                 GotFocus="Name_textBox_GotFocus"           LostFocus="Name_textBox_LostFocus" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Patronymic_textBox"    Margin="995,84,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Отчество"            GotFocus="Patronymic_textBox_GotFocus"     LostFocus="Patronymic_textBox_LostFocus" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Mail_textBox"          Margin="995,108,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="304" Height="24"    TextWrapping="Wrap" Text="Почтовый адрес"      GotFocus="Mail_textBox_GotFocus"           LostFocus="Mail_textBox_LostFocus" CaretBrush="#FFA20025" Background="White" />
-        <TextBox x:Name="Phone_textBox"         Margin="995,132,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="Номер телефона"      GotFocus="Phone_textBox_GotFocus"          LostFocus="Phone_textBox_LostFocus" CaretBrush="#FFA20025" Background="White" />
-        <TextBox x:Name="Password_textBox"      Margin="995,155,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Пароль"              GotFocus="Password_textBox_GotFocus"       LostFocus="Password_textBox_LostFocus" CaretBrush="#FFA20025" Background="White" />
-        <TextBox x:Name="ID_TextBox"            Margin="1139,61,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="ID студента"         GotFocus="ID_TextBox_GotFocus"             LostFocus="ID_TextBox_LostFocus" CaretBrush="#FFA20025" Background="White" />
-        <TextBox x:Name="Id_group_TextBox"      Margin="189,375,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="ID группы"           GotFocus="Id_group_TextBox_GotFocus"       LostFocus="Id_group_TextBox_LostFocus" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Name_Group_TextBox"    Margin="189,400,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Название группы"     GotFocus="Name_Group_TextBox_GotFocus"     LostFocus="Name_Group_TextBox_LostFocus" Cursor="Arrow" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Student_ID_Text_Box"   Margin="995,375,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="ID студента"         GotFocus="Student_ID_Text_Box_GotFocus"    LostFocus="Student_ID_Text_Box_LostFocus" CaretBrush="#FFA20025" Background="White"/>
-        <TextBox x:Name="Group_ID_TextBox"      Margin="995,400,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Название группы"     GotFocus="Name_in_Group_TextBox_GotFocus"  LostFocus="Name_in_Group_TextBox_LostFocus" CaretBrush="#FFA20025" Background="White"/>
+        <TextBox x:Name="Surname_textBox"       Margin="995,37,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Фамилия"             GotFocus="Surname_textBox_GotFocus"        LostFocus="Surname_textBox_LostFocus"   />
+        <TextBox x:Name="Name_textBox"          Margin="995,61,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="Имя"                 GotFocus="Name_textBox_GotFocus"           LostFocus="Name_textBox_LostFocus"          />
+        <TextBox x:Name="Patronymic_textBox"    Margin="995,84,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Отчество"            GotFocus="Patronymic_textBox_GotFocus"     LostFocus="Patronymic_textBox_LostFocus"    />
+        <TextBox x:Name="Mail_textBox"          Margin="995,108,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="304" Height="24"    TextWrapping="Wrap" Text="Почтовый адрес"      GotFocus="Mail_textBox_GotFocus"           LostFocus="Mail_textBox_LostFocus"         />
+        <TextBox x:Name="Phone_textBox"         Margin="995,132,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="Номер телефона"      GotFocus="Phone_textBox_GotFocus"          LostFocus="Phone_textBox_LostFocus"         />
+        <TextBox x:Name="Password_textBox"      Margin="995,155,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Пароль"              GotFocus="Password_textBox_GotFocus"       LostFocus="Password_textBox_LostFocus"      />
+        <TextBox x:Name="ID_TextBox"            Margin="1139,61,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="23"    TextWrapping="Wrap" Text="ID студента"         IsReadOnly="True"/>
+        <TextBox x:Name="Id_group_TextBox"      Margin="189,375,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="ID группы"           IsReadOnly="True"/>
+        <TextBox x:Name="Name_Group_TextBox"    Margin="189,400,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="Название группы"     GotFocus="Name_Group_TextBox_GotFocus"     LostFocus="Name_Group_TextBox_LostFocus"    />
+        <TextBox x:Name="Student_ID_Text_Box"   Margin="995,375,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="ID студента"         IsReadOnly="True"   />
+        <TextBox x:Name="Group_ID_TextBox"      Margin="995,400,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"    TextWrapping="Wrap" Text="ID группы"     GotFocus="Name_in_Group_TextBox_GotFocus"  LostFocus="Name_in_Group_TextBox_LostFocus" />
 
         <Button x:Name="Add_in_Group_Button"    Content="Добавить"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256"   Margin="995,430,0,0" Click="Add_in_Group_Button_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
         <Button x:Name="Upd_in_Group_Button"    Content="Обновить"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256"   Margin="995,465,0,0" Click="Upd_in_Group_Button_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
@@ -63,7 +63,7 @@
 
         <Button x:Name="Clear_Text1" Content="Очистить поля" HorizontalAlignment="Left" Margin="995,298,0,0" VerticalAlignment="Top" Click="Clear_Text1_Click" Cursor="Hand" Width="257" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke" Height="31"/>
 
-        <DatePicker x:Name="DOB" HorizontalAlignment="Left" Margin="1139,37,0,0" VerticalAlignment="Top" Width="120" Height="24" Background="White"/>
+        <DatePicker x:Name="DOB" HorizontalAlignment="Left" Margin="1139,37,0,0" VerticalAlignment="Top" Width="120" Height="24" />
         <Button x:Name="Clear_Text2" Content="Очистить поля" HorizontalAlignment="Left" Margin="189,535,0,0" VerticalAlignment="Top" Click="Clear_Text2_Click" Cursor="Hand" Width="256" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
         <Button x:Name="Clear_Text3" Content="Очистить поля" HorizontalAlignment="Left" Margin="995,535,0,0" VerticalAlignment="Top" Click="Clear_Text3_Click" Cursor="Hand" Width="256" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
     </Grid>

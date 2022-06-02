@@ -59,11 +59,24 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Disciplines VALUES (@Name_Discipline)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Name_Discipline_param = new SqlParameter("@Name_Discipline", NameDisp.Text);
-                cmd.Parameters.Add(Name_Discipline_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Disciplines] WHERE Name_Discipline = @Name_Discipline");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Name_Discipline_check_param = new SqlParameter("@Name_Discipline", NameDisp.Text);
+                cmd.Parameters.Add(Name_Discipline_check_param);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "INSERT INTO dbo.Disciplines VALUES (@Name_Discipline)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Name_Discipline_param = new SqlParameter("@Name_Discipline", NameDisp.Text);
+                    command.Parameters.Add(Name_Discipline_param);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (SqlException er)
             {

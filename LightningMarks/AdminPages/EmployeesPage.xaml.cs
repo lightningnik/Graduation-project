@@ -23,7 +23,7 @@ namespace LightningMarks
                                         // при закртытии подключения на странице StartPage
             Manager.connection.Open();
 
-            string EmpString = "SELECT Employee_id, Surname, Name, Patronymic, Role_Employee, Date_Of_Birth, Phone_number, Mail, Password " +
+            string EmpString = "SELECT DISTINCT Employee_id, Surname, Name, Patronymic, Role_Employee, Date_Of_Birth, Phone_number, Mail, Password " +
             "FROM Employees";
             SqlCommand emp = new SqlCommand(EmpString, Manager.connection);
             SqlDataAdapter emp_sda = new SqlDataAdapter(emp);
@@ -31,8 +31,10 @@ namespace LightningMarks
             emp_sda.Fill(emp_dt);
             EmpDataGrid.ItemsSource = emp_dt.DefaultView;
 
-            string LessonsString = "SELECT dbo.Groups.Group_id, dbo.Groups.Name_Group, dbo.Disciplines.Discipline_id, dbo.Disciplines.Name_Discipline, dbo.Employees.Surname, dbo.Employees.Name, dbo.Employees.Patronymic, dbo.Employees.Employee_id," +
-                "dbo.Lessons.Lesson_id FROM dbo.Employees INNER JOIN " +
+            string LessonsString = "SELECT DISTINCT " +
+                "dbo.Groups.Group_id, dbo.Groups.Name_Group, dbo.Disciplines.Discipline_id, dbo.Disciplines.Name_Discipline, dbo.Employees.Surname, dbo.Employees.Name, dbo.Employees.Patronymic, dbo.Lessons.Lesson_id, " +
+                "dbo.Employees.Employee_id " +
+                "FROM            dbo.Employees INNER JOIN " +
                 "dbo.Lessons ON dbo.Employees.Employee_id = dbo.Lessons.Employee_id INNER JOIN " +
                 "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
                 "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id";
@@ -42,14 +44,14 @@ namespace LightningMarks
             lesson_sda.Fill(lesson_dt);
             LessonsDataGrid.ItemsSource = lesson_dt.DefaultView;
 
-            string DisciplineString = "SELECT Discipline_id, Name_Discipline FROM Disciplines";
+            string DisciplineString = "SELECT DISTINCT Discipline_id, Name_Discipline FROM Disciplines";
             SqlCommand disp = new SqlCommand(DisciplineString, Manager.connection);
             SqlDataAdapter disp_sda = new SqlDataAdapter(disp);
             DataTable disp_dt = new DataTable("Disciplines");
             disp_sda.Fill(disp_dt);
             DisciplineDataGrid.ItemsSource = disp_dt.DefaultView;
 
-            string GroupString = "SELECT Group_id, Name_Group FROM Groups";
+            string GroupString = "SELECT DISTINCT Group_id, Name_Group FROM Groups";
             SqlCommand grp = new SqlCommand(GroupString, Manager.connection);
             SqlDataAdapter grp_sda = new SqlDataAdapter(grp);
             DataTable grp_dt = new DataTable("Groups");
@@ -57,6 +59,21 @@ namespace LightningMarks
             GroupDataGrid.ItemsSource = grp_dt.DefaultView;
 
             Manager.connection.Close();
+        }
+
+        private void Clear()
+        {
+            Surname_textBox.Text = "Фамилия";
+            Name_textBox.Text = "Имя";
+            Patronymic_textBox.Text = "Отчество";
+            Mail_textBox.Text = "Почтовый адрес";
+            Phone_textBox.Text = "Номер телефона";
+            Password_textBox.Text = "Пароль";
+            ID_TextBox.Text = "ID сотрудника";
+            Employee_ID_Textbox.Text = "ID сотрудника";
+            Group_id.Text = "ID группы";
+            ID_Discipline.Text = "ID дисциплины";
+            ID.Text = "ID записи";
         }
 
         private void EmpDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,7 +101,6 @@ namespace LightningMarks
             DataRowView row_selected = gd.SelectedItem as DataRowView;
             if (row_selected != null)
             {
-
                 Employee_ID_Textbox.Text = row_selected["Employee_id"].ToString();
                 ID.Text = row_selected["Lesson_id"].ToString();
                 Group_id.Text = row_selected["Group_id"].ToString();
@@ -142,13 +158,6 @@ namespace LightningMarks
                 MessageBox.Show(er.Number + " " + er.Message);
             }
             FillDataGrid();
-            Surname_textBox.Text = "Фамилия";
-            Name_textBox.Text = "Имя";
-            Patronymic_textBox.Text = "Отчество";
-            Mail_textBox.Text = "Почтовый адрес";
-            Phone_textBox.Text = "Номер телефона";
-            Password_textBox.Text = "Пароль";
-            ID_TextBox.Text = "ID сотрудника";
             Manager.connection.Close();
         }
 
@@ -220,24 +229,39 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addLesson = "INSERT INTO dbo.Lessons VALUES (@Group_id_param, @Emp_id_param, @Disp_id_param)";
-                SqlCommand cmd = new SqlCommand(addLesson, Manager.connection);
+                string authorization = ("SELECT * FROM [dbo].[Lessons] WHERE Group_id = @Group_id_param AND Employee_id = @Emp_id_param AND Discipline_id = @Disp_id_param");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
                 SqlParameter Emp_id_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
                 cmd.Parameters.Add(Emp_id_param);
                 SqlParameter Disp_id_param = new SqlParameter("@Disp_id_param", ID_Discipline.Text);
                 cmd.Parameters.Add(Disp_id_param);
                 SqlParameter Group_id_param = new SqlParameter("@Group_id_param", Group_id.Text);
                 cmd.Parameters.Add(Group_id_param);
-                cmd.ExecuteNonQuery();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addLesson = "INSERT INTO dbo.Lessons VALUES (@Group_id_param, @Emp_id_param, @Disp_id_param)";
+                    SqlCommand command = new SqlCommand(addLesson, Manager.connection);
+                    SqlParameter Emp_id_insert_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
+                    command.Parameters.Add(Emp_id_insert_param);
+                    SqlParameter Disp_id_insert_param = new SqlParameter("@Disp_id_param", ID_Discipline.Text);
+                    command.Parameters.Add(Disp_id_insert_param);
+                    SqlParameter Group_id_insert_param = new SqlParameter("@Group_id_param", Group_id.Text);
+                    command.Parameters.Add(Group_id_insert_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
             }
             catch (SqlException er)
             {
                 MessageBox.Show(er.Number + " " + er.Message);
             }
             FillDataGrid();
-            Employee_ID_Textbox.Text = "ID сотрудника";
-            Group_id.Text = "ID группы";
-            ID_Discipline.Text = "ID дисциплины";
             Manager.connection.Close();
         }
 
@@ -312,6 +336,8 @@ namespace LightningMarks
         {
             ID.Text = "ID записи";
             Employee_ID_Textbox.Text = "ID сотрудника";
+            Group_id.Text = "ID группы";
+            ID_Discipline.Text = "ID Дисциплины";
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -393,38 +419,6 @@ namespace LightningMarks
             }
         }
 
-        private void ID_TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_TextBox.Text == "ID сотрудника")
-            {
-                ID_TextBox.Text = "";
-            }
-        }
-
-        private void ID_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID.Text == "ID записи")
-            {
-                ID.Text = "";
-            }
-        }
-
-        private void Group_id_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (Group_id.Text == "ID группы")
-            {
-                Group_id.Text = "";
-            }
-        }
-
-        private void ID_Discipline_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Discipline.Text == "ID Дисциплины")
-            {
-                ID_Discipline.Text = "";
-            }
-        }
-
         private void Surname_textBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (Surname_textBox.Text == "")
@@ -470,46 +464,6 @@ namespace LightningMarks
             if (Password_textBox.Text == "")
             {
                 Password_textBox.Text = "Пароль";
-            }
-        }
-
-        private void ID_TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_TextBox.Text == "")
-            {
-                ID_TextBox.Text = "ID сотрудника";
-            }
-        }
-
-        private void ID_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID.Text == "")
-            {
-                ID.Text = "ID записи";
-            }
-        }
-
-        private void Employee_ID_Textbox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (Employee_ID_Textbox.Text == "")
-            {
-                Employee_ID_Textbox.Text = "ID сотрудника";
-            }
-        }
-
-        private void Group_id_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (Group_id.Text == "")
-            {
-                Group_id.Text = "ID группы";
-            }
-        }
-
-        private void ID_Discipline_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ID_Discipline.Text == "")
-            {
-                ID_Discipline.Text = "ID дициплины";
             }
         }
     }

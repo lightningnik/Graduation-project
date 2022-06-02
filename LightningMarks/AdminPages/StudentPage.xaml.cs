@@ -217,7 +217,7 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string updList = "UPDATE dbo.Group_List SET Student_id = @Student_id, Group_id = @Group_id";
+                string updList = "UPDATE dbo.Group_List SET Group_id = @Group_id WHERE Student_id = @Student_id";
                 SqlCommand cmd = new SqlCommand(updList, Manager.connection);
                 SqlParameter Student_id_param = new SqlParameter("@Student_id", Student_ID_Text_Box.Text);
                 cmd.Parameters.Add(Student_id_param);
@@ -495,6 +495,11 @@ namespace LightningMarks
         {
             Student_ID_Text_Box.Text = "ID студента";
             Group_ID_TextBox.Text = "Название группы";
+        }
+
+        private void Id_group_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

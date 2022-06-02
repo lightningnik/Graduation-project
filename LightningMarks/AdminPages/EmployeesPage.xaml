@@ -39,37 +39,6 @@
                 <DataGridTextColumn Binding="{Binding Name_Discipline}"  Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-
-        <TextBox x:Name="Surname_textBox"       Margin="0,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Фамилия"          GotFocus="Surname_textBox_GotFocus"     LostFocus="Surname_textBox_LostFocus"       />
-        <TextBox x:Name="Name_textBox"          Margin="145,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Имя"              GotFocus="Name_textBox_GotFocus"        LostFocus="Name_textBox_LostFocus"          />
-        <TextBox x:Name="Patronymic_textBox"    Margin="290,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Отчество"         GotFocus="Patronymic_textBox_GotFocus"  LostFocus="Patronymic_textBox_LostFocus" Cursor="Arrow"    />
-        <TextBox x:Name="Mail_textBox"          Margin="435,335,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="24"  TextWrapping="Wrap" Text="Почтовый адрес"   GotFocus="Mail_textBox_GotFocus"        LostFocus="Mail_textBox_LostFocus"          />
-        <TextBox x:Name="Phone_textBox"         Margin="696,335,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Номер телефона"   GotFocus="Phone_textBox_GotFocus"       LostFocus="Phone_textBox_LostFocus"         />
-        <TextBox x:Name="Password_textBox"      Margin="841,335,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Пароль"           GotFocus="Password_textBox_GotFocus"    LostFocus="Password_textBox_LostFocus"      />
-        <TextBox x:Name="ID_TextBox"            Margin="1236,335,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="24"  TextWrapping="Wrap" Text="ID сотрудника"    GotFocus="ID_TextBox_GotFocus"          LostFocus="ID_TextBox_LostFocus"            />
-        <TextBox x:Name="ID"                    Margin="0,555,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID записи"        GotFocus="ID_GotFocus"                  LostFocus="ID_LostFocus" />
-        <TextBox x:Name="Employee_ID_Textbox"   Margin="145,555,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID сотрудника"    GotFocus="Employee_ID_Textbox_GotFocus" LostFocus="Employee_ID_Textbox_LostFocus"   />
-        <TextBox x:Name="Group_id" HorizontalAlignment="Left" Margin="290,555,0,0" TextWrapping="Wrap" Text="ID группы" VerticalAlignment="Top" Width="120" Height="24" LostFocus="Group_id_LostFocus" GotFocus="Group_id_GotFocus" Cursor="Arrow"/>
-        <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left" Margin="415,555,0,0" TextWrapping="Wrap" Text="ID Дисциплины" VerticalAlignment="Top" Width="120" Height="24" GotFocus="ID_Discipline_GotFocus" LostFocus="ID_Discipline_LostFocus"/>
-
-        <ComboBox x:Name="Role_ComboBox"        HorizontalAlignment="Left" Margin="1111,335,0,0"  VerticalAlignment="Top" Width="120" Height="24" Text="Роль" >
-            <TextBlock>Преподаватель</TextBlock>
-            <TextBlock>Администратор</TextBlock>
-        </ComboBox>
-
-        <Button x:Name="Set_Discipline"     Content="Добавить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,364,0,0"  Click="Set_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Upd_Discipline"     Content="Обновить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,400,0,0"  Click="Upd_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Del_Discipline"     Content="Удалить"       HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,436,0,0"  Click="Del_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Clear_Text2"        Content="Очистить поля" HorizontalAlignment="Left" Margin="1050,472,0,0" VerticalAlignment="Top" Click="Clear_Text2_Click" Width="255" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-
-        <Button x:Name="Add_Employee"       Content="Добавить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1049,30,0,0" Click="Add_Employee_Click"   Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Upd_Employee"       Content="Обновить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1049,66,0,0" Click="Upd_Employee_Click"   Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Del_Employee"       Content="Удалить"       HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,102,0,0" Click="Del_Employee_Click"   Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <Button x:Name="Clear_Text1"        Content="Очистить поля" HorizontalAlignment="Left" Margin="1050,138,0,0" VerticalAlignment="Top" Width="256"  Click="Clear_Text1_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-
-
-
-        <DatePicker x:Name="DOB" HorizontalAlignment="Left" Margin="986,335,0,0" VerticalAlignment="Top" Width="120" Height="24" />
         <DataGrid x:Name="GroupDataGrid"  Margin="0,584,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="285"
                   VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" Focusable="False" IsReadOnly="True"
@@ -90,6 +59,38 @@
                 <DataGridTextColumn Binding="{Binding Name_Discipline}"  Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="Search" Content="Поиск" Margin="1050,175,0,0" Click="Search_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+
+        <TextBox x:Name="Surname_textBox"       Margin="0,335,0,0"      HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Фамилия"          GotFocus="Surname_textBox_GotFocus"     LostFocus="Surname_textBox_LostFocus"       />
+        <TextBox x:Name="Name_textBox"          Margin="145,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Имя"              GotFocus="Name_textBox_GotFocus"        LostFocus="Name_textBox_LostFocus"          />
+        <TextBox x:Name="Patronymic_textBox"    Margin="290,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Отчество"         GotFocus="Patronymic_textBox_GotFocus"  LostFocus="Patronymic_textBox_LostFocus" Cursor="Arrow"    />
+        <TextBox x:Name="Mail_textBox"          Margin="435,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="24"  TextWrapping="Wrap" Text="Почтовый адрес"   GotFocus="Mail_textBox_GotFocus"        LostFocus="Mail_textBox_LostFocus"          />
+        <TextBox x:Name="Phone_textBox"         Margin="696,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Номер телефона"   GotFocus="Phone_textBox_GotFocus"       LostFocus="Phone_textBox_LostFocus"         />
+        <TextBox x:Name="Password_textBox"      Margin="841,335,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="Пароль"           GotFocus="Password_textBox_GotFocus"    LostFocus="Password_textBox_LostFocus"      />
+        <TextBox x:Name="ID_TextBox"            Margin="1236,335,0,0"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="24"  TextWrapping="Wrap" Text="ID сотрудника"    IsReadOnly="True"/>
+        <TextBox x:Name="ID"                    Margin="0,555,0,0"      HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID записи"        IsReadOnly="True"/>
+        <TextBox x:Name="Employee_ID_Textbox"   Margin="145,555,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="24"  TextWrapping="Wrap" Text="ID сотрудника"    IsReadOnly="True"/>
+        <TextBox x:Name="Group_id"              Margin="290,555,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="24"  TextWrapping="Wrap" Text="ID группы"        IsReadOnly="True"/>
+        <TextBox x:Name="ID_Discipline"         Margin="415,555,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="24"  TextWrapping="Wrap" Text="ID Дисциплины"    IsReadOnly="True"/>
+
+        <ComboBox x:Name="Role_ComboBox"        HorizontalAlignment="Left" Margin="1111,335,0,0"  VerticalAlignment="Top" Width="120" Height="24">
+            <TextBlock>Преподаватель</TextBlock>
+            <TextBlock>Администратор</TextBlock>
+        </ComboBox>
+
+        <Button x:Name="Set_Discipline"     Content="Добавить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,364,0,0"  Click="Set_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Upd_Discipline"     Content="Обновить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,400,0,0"  Click="Upd_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Del_Discipline"     Content="Удалить"       HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,436,0,0"  Click="Del_Discipline_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Clear_Text2"        Content="Очистить поля" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,472,0,0"  Click="Clear_Text2_Click"    Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+
+        <Button x:Name="Add_Employee"       Content="Добавить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1049,30,0,0"  Click="Add_Employee_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Upd_Employee"       Content="Обновить"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1049,66,0,0"  Click="Upd_Employee_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Del_Employee"       Content="Удалить"       HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,102,0,0" Click="Del_Employee_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Clear_Text1"        Content="Очистить поля" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="256" Margin="1050,138,0,0" Click="Clear_Text1_Click"  Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+
+        <Button x:Name="Search"             Content="Поиск" Margin="1050,175,0,0" Click="Search_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+
+        <DatePicker x:Name="DOB" HorizontalAlignment="Left" Margin="986,335,0,0" VerticalAlignment="Top" Width="120" Height="24" />
+        
+        
     </Grid>
 </Page>
