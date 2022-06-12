@@ -8,11 +8,11 @@
         Title="TeacherWindow" Height="800" Width="1366" WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid x:Name="GroupListDataGrid"    Width="683" Height="256" Margin="0,0,0,0"       HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="GroupListDataGrid_SelectionChanged">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
-            <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
-            <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
-        </DataGrid.Columns>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
+            </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="DisciplineDataGrid"   Width="382" Height="256" Margin="683,0,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="DisciplineDataGrid_SelectionChanged">
             <DataGrid.Columns>
@@ -20,9 +20,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="Type_work"            Width="301" Height="256" Margin="1065,0,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="Type_work_SelectionChanged">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
-        </DataGrid.Columns>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
+            </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="MarkDataGrid"                                  Margin="0,323,0,205"                                                      VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged">
             <DataGrid.Columns>
@@ -37,7 +37,7 @@
 
         <TextBox x:Name="ID_Student"    HorizontalAlignment="Left"      Margin="10,584,0,0"  Text="ID студента"     VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"      Margin="136,584,0,0" Text="ID дисциплины"   VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
-        <TextBox x:Name="ID"            HorizontalAlignment="Left"      Margin="654,584,0,0" Text="ID записи"       VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="ID"            HorizontalAlignment="Left"      Margin="820,584,0,0" Text="ID записи"       VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <TextBox x:Name="Work_ID"       HorizontalAlignment="Left"      Margin="529,584,0,0" Text="Тип работы"      VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
 
         <DatePicker x:Name="Date" HorizontalAlignment="Left"  Margin="396,584,0,0" VerticalAlignment="Top" Width="128"/>
@@ -63,5 +63,6 @@
             <ComboBoxItem >Упрощенный вывод</ComboBoxItem>
             <ComboBoxItem >Подробный вывод</ComboBoxItem>
         </ComboBox>
+        <TextBox HorizontalAlignment="Left" Margin="655,584,0,0" TextWrapping="Wrap" Text="Комментарий" VerticalAlignment="Top" Width="160" Height="82"/>
     </Grid>
 </Window>

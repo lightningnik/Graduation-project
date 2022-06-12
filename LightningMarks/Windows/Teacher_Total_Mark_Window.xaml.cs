@@ -37,10 +37,8 @@ namespace LightningMarks.Windows
                 Name_Group_ComboBox.Items.Add(grp_dt.Rows[i]["Name_Group"].ToString());
             }
 
-            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
-                    "FROM dbo.Lessons INNER JOIN " +
-                    "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id");
+            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline " +
+                "FROM dbo.Lessons INNER JOIN dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id WHERE Employee_id = @my_id");
             SqlCommand disp = new SqlCommand(DispString, Manager.connection);
             disp.Parameters.Add("@my_id", SqlDbType.Int);
             disp.Parameters["@my_id"].Value = Manager.my_id;
@@ -90,12 +88,10 @@ namespace LightningMarks.Windows
             string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
                     "FROM dbo.Lessons INNER JOIN " +
                     "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND Name_Group = @NameGroup");
+                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND Name_Group = " + Name_Group_ComboBox.Text + "");
             SqlCommand disp = new SqlCommand(DispString, Manager.connection);
             disp.Parameters.Add("@my_id", SqlDbType.Int);
             disp.Parameters["@my_id"].Value = Manager.my_id;
-            SqlParameter Name_Group_param = new SqlParameter("@NameGroup", Name_Group_ComboBox.Text);
-            disp.Parameters.Add(Name_Group_param);
             SqlDataAdapter disp_da = new SqlDataAdapter(disp);
             DataTable disp_dt = new DataTable();
             DisciplineCombobox.Items.Clear();

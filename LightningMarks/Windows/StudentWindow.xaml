@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LightningMarks"
         mc:Ignorable="d"
-        Title="StudentWindow" Height="450" Width="1366" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="StudentWindow" Height="500" Width="1366" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid x:Name="MarksDataGrid" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" HorizontalAlignment="Center" VerticalAlignment="Top" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False" Width="1346" Height="342">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name_Discipline}"                     Header="Дисциплина" Width="500"/>
                 <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценка"/>
+                <DataGridTextColumn Binding="{Binding Work_Type}"                                Header="Тип работы"/>
                 <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата"/>
                 <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия преподавателя"/>
                 <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя преподавателя"/>
@@ -18,7 +18,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Center" Margin="0,366,0,0" VerticalAlignment="Top" Click="Exit_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Click="Exit_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
+        <ComboBox x:Name="Name_Discipline" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="506"/>
 
     </Grid>
 </Window>

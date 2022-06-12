@@ -59,6 +59,24 @@ namespace LightningMarks
             Manager.connection.Close();
         }
 
+        private void Clear()
+        {
+            Surname_textBox.Text = "Фамилия";
+            Name_textBox.Text = "Имя";
+            Patronymic_textBox.Text = "Отчество";
+            DOB.SelectedDate = null;
+            Phone_textBox.Text = "Номер телефона";
+            Mail_textBox.Text = "Почтовый адрес";
+            Password_textBox.Text = "Пароль";
+            ID_TextBox.Text = "ID студента";
+            Id_group_TextBox.Text = "ID группы";
+            Name_Group_TextBox.Text = "Название группы";
+            Student_ID_Text_Box.Text = "ID студента";
+            Group_ID_TextBox.Text = "ID группы";
+
+
+        }
+
         private void StudentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
@@ -104,23 +122,44 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Students VALUES (@Surname, @Name, @Patronymic,@DOB, @Phone, @Mail, @Password)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
-                cmd.Parameters.Add(Surname_param);
-                SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
-                cmd.Parameters.Add(Name_param);
-                SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
-                cmd.Parameters.Add(Patronymic_param);
-                SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
-                cmd.Parameters.Add(DOB_param);
-                SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
-                cmd.Parameters.Add(Phone_param);
-                SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
-                cmd.Parameters.Add(Mail_param);
-                SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
-                cmd.Parameters.Add(Password_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Students] WHERE Surname = @Surname AND Name = @Name AND Patronymic = @Patronymic AND Date_Of_Birth = @DOB");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Surname_check_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                cmd.Parameters.Add(Surname_check_param);
+                SqlParameter Name_check_param = new SqlParameter("@Name", Name_textBox.Text);
+                cmd.Parameters.Add(Name_check_param);
+                SqlParameter Patronymic_check_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                cmd.Parameters.Add(Patronymic_check_param);
+                SqlParameter DOB_check_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                cmd.Parameters.Add(DOB_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "INSERT INTO dbo.Students VALUES (@Surname, @Name, @Patronymic,@DOB, @Phone, @Mail, @Password)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                    command.Parameters.Add(Surname_param);
+                    SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
+                    command.Parameters.Add(Name_param);
+                    SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                    command.Parameters.Add(Patronymic_param);
+                    SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                    command.Parameters.Add(DOB_param);
+                    SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
+                    command.Parameters.Add(Phone_param);
+                    SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
+                    command.Parameters.Add(Mail_param);
+                    SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
+                    command.Parameters.Add(Password_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
             }
             catch (SqlException er)
             {
@@ -135,26 +174,45 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Students SET Surname = @Surname, Name = @Name, Patronymic = @Patronymic," +
-                    "Date_Of_Birth = @DOB, Phone_number = @Phone, Mail = @Mail, Password = @Password WHERE (Student_id = @ID_value)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter ID_param = new SqlParameter("@ID_value", ID_TextBox.Text);
-                cmd.Parameters.Add(ID_param);
-                SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
-                cmd.Parameters.Add(Surname_param);
-                SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
-                cmd.Parameters.Add(Name_param);
-                SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
-                cmd.Parameters.Add(Patronymic_param);
-                SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
-                cmd.Parameters.Add(DOB_param);
-                SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
-                cmd.Parameters.Add(Phone_param);
-                SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
-                cmd.Parameters.Add(Mail_param);
-                SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
-                cmd.Parameters.Add(Password_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Students] WHERE Surname = @Surname AND Name = @Name AND Patronymic = @Patronymic AND Date_Of_Birth = @DOB");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Surname_check_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                cmd.Parameters.Add(Surname_check_param);
+                SqlParameter Name_check_param = new SqlParameter("@Name", Name_textBox.Text);
+                cmd.Parameters.Add(Name_check_param);
+                SqlParameter Patronymic_check_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                cmd.Parameters.Add(Patronymic_check_param);
+                SqlParameter DOB_check_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                cmd.Parameters.Add(DOB_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "UPDATE dbo.Students SET Surname = @Surname, Name = @Name, Patronymic = @Patronymic," +
+                      "Date_Of_Birth = @DOB, Phone_number = @Phone, Mail = @Mail, Password = @Password WHERE (Student_id = @ID_value)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                    command.Parameters.Add(Surname_param);
+                    SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
+                    command.Parameters.Add(Name_param);
+                    SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                    command.Parameters.Add(Patronymic_param);
+                    SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                    command.Parameters.Add(DOB_param);
+                    SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
+                    command.Parameters.Add(Phone_param);
+                    SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
+                    command.Parameters.Add(Mail_param);
+                    SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
+                    command.Parameters.Add(Password_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
             }
             catch (SqlException er)
             {
@@ -235,7 +293,29 @@ namespace LightningMarks
 
         private void Del_in_Group_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (Student_ID_Text_Box.Text == "")
+                {
+                    MessageBox.Show("Пожалуйста, заполните поле для удаления!!!");
+                }
+                else
+                {
+                    Manager.connection.Open();
+                    string Delete = "DELETE FROM Group_list WHERE Student_id = (@ID_value)";
+                    SqlCommand cmd = new SqlCommand(Delete, Manager.connection);
+                    SqlParameter Delete_param = new SqlParameter("@ID_value", Student_ID_Text_Box.Text);
+                    cmd.Parameters.Add(Delete_param);
+                    cmd.ExecuteNonQuery();
+                    FillDataGrid();
+                    MessageBox.Show("Запись удалена!!!");
+                }
+            }
+            catch (SqlException er)
+            {
+                MessageBox.Show(er.Number + " " + er.Message);
+            }
+    Manager.connection.Close();
         }
 
         private void Add_Group_Button_Click(object sender, RoutedEventArgs e)
@@ -243,11 +323,27 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Groups VALUES (@Name_Group)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Name_Group_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
-                cmd.Parameters.Add(Name_Group_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Groups] WHERE Name_group = @Name_Group");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Name_Group_check_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
+                cmd.Parameters.Add(Name_Group_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "INSERT INTO dbo.Groups VALUES (@Name_Group)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Name_Group_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
+                    command.Parameters.Add(Name_Group_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
+               
             }
             catch (SqlException er)
             {
@@ -262,13 +358,30 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Groups SET Name_Group = @Name_Group WHERE (Group_id = @ID_value)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter ID_param = new SqlParameter("@ID_value", Id_group_TextBox.Text);
-                cmd.Parameters.Add(ID_param);
-                SqlParameter Name_Group_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
-                cmd.Parameters.Add(Name_Group_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Groups] WHERE Name_group = @Name_Group");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Name_Group_check_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
+                cmd.Parameters.Add(Name_Group_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    Manager.connection.Open();
+                    string addEmp = "UPDATE dbo.Groups SET Name_Group = @Name_Group WHERE (Group_id = @ID_value)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter ID_param = new SqlParameter("@ID_value", Id_group_TextBox.Text);
+                    command.Parameters.Add(ID_param);
+                    SqlParameter Name_Group_param = new SqlParameter("@Name_Group", Name_Group_TextBox.Text);
+                    command.Parameters.Add(Name_Group_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
+                
             }
             catch (SqlException er)
             {

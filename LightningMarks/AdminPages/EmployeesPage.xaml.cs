@@ -133,25 +133,44 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Employees VALUES (@Surname, @Name, @Patronymic, @Role,@DOB, @Phone, @Mail, @Password)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
-                cmd.Parameters.Add(Surname_param);
-                SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
-                cmd.Parameters.Add(Name_param);
-                SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
-                cmd.Parameters.Add(Patronymic_param);
-                SqlParameter Role_param = new SqlParameter("@Role", Role_ComboBox.Text);
-                cmd.Parameters.Add(Role_param);
-                SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
-                cmd.Parameters.Add(DOB_param);
-                SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
-                cmd.Parameters.Add(Phone_param);
-                SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
-                cmd.Parameters.Add(Mail_param);
-                SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
-                cmd.Parameters.Add(Password_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Employees] WHERE Surname = @Surname AND Name = @Name AND Patronymic = @Patronymic AND Role_Employee = @Role AND Date_Of_Birth = @DOB");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Surname_check_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                cmd.Parameters.Add(Surname_check_param);
+                SqlParameter Name_check_param = new SqlParameter("@Name", Name_textBox.Text);
+                cmd.Parameters.Add(Name_check_param);
+                SqlParameter Patronymic_check_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                cmd.Parameters.Add(Patronymic_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "INSERT INTO dbo.Employees VALUES (@Surname, @Name, @Patronymic, @Role,@DOB, @Phone, @Mail, @Password)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                    command.Parameters.Add(Surname_param);
+                    SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
+                    command.Parameters.Add(Name_param);
+                    SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                    command.Parameters.Add(Patronymic_param);
+                    SqlParameter Role_param = new SqlParameter("@Role", Role_ComboBox.Text);
+                    command.Parameters.Add(Role_param);
+                    SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                    command.Parameters.Add(DOB_param);
+                    SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
+                    command.Parameters.Add(Phone_param);
+                    SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
+                    command.Parameters.Add(Mail_param);
+                    SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
+                    command.Parameters.Add(Password_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
             }
             catch (SqlException er)
             {
@@ -166,28 +185,49 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Employees SET Surname = @Surname, Name = @Name, Patronymic = @Patronymic, Role_Employee = @Role," +
-                    "Date_Of_Birth = @DOB, Phone_number = @Phone, Mail = @Mail, Password = @Password WHERE (Employee_id = @ID_value)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter ID_param = new SqlParameter("@ID_value", ID_TextBox.Text);
-                cmd.Parameters.Add(ID_param);
-                SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
-                cmd.Parameters.Add(Surname_param);
-                SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
-                cmd.Parameters.Add(Name_param);
-                SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
-                cmd.Parameters.Add(Patronymic_param);
-                SqlParameter Role_param = new SqlParameter("@Role", Role_ComboBox.Text);
-                cmd.Parameters.Add(Role_param);
-                SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
-                cmd.Parameters.Add(DOB_param);
-                SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
-                cmd.Parameters.Add(Phone_param);
-                SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
-                cmd.Parameters.Add(Mail_param);
-                SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
-                cmd.Parameters.Add(Password_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Employees] WHERE Surname = @Surname AND Name = @Name AND Patronymic = @Patronymic AND Role_Employee = @Role AND Date_Of_Birth = @DOB");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Surname_check_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                cmd.Parameters.Add(Surname_check_param);
+                SqlParameter Name_check_param = new SqlParameter("@Name", Name_textBox.Text);
+                cmd.Parameters.Add(Name_check_param);
+                SqlParameter Patronymic_check_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                cmd.Parameters.Add(Patronymic_check_param);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "UPDATE dbo.Employees SET Surname = @Surname, Name = @Name, Patronymic = @Patronymic, Role_Employee = @Role," +
+                   "Date_Of_Birth = @DOB, Phone_number = @Phone, Mail = @Mail, Password = @Password WHERE (Employee_id = @ID_value)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter ID_param = new SqlParameter("@ID_value", ID_TextBox.Text);
+                    command.Parameters.Add(ID_param);
+                    SqlParameter Surname_param = new SqlParameter("@Surname", Surname_textBox.Text);
+                    command.Parameters.Add(Surname_param);
+                    SqlParameter Name_param = new SqlParameter("@Name", Name_textBox.Text);
+                    command.Parameters.Add(Name_param);
+                    SqlParameter Patronymic_param = new SqlParameter("@Patronymic", Patronymic_textBox.Text);
+                    command.Parameters.Add(Patronymic_param);
+                    SqlParameter Role_param = new SqlParameter("@Role", Role_ComboBox.Text);
+                    command.Parameters.Add(Role_param);
+                    SqlParameter DOB_param = new SqlParameter("@DOB", DOB.SelectedDate); //DOB - Date of birth (Дата рождения)
+                    command.Parameters.Add(DOB_param);
+                    SqlParameter Phone_param = new SqlParameter("@Phone", Phone_textBox.Text);
+                    command.Parameters.Add(Phone_param);
+                    SqlParameter Mail_param = new SqlParameter("@Mail", Mail_textBox.Text);
+                    command.Parameters.Add(Mail_param);
+                    SqlParameter Password_param = new SqlParameter("@Password", Password_textBox.Text);
+                    command.Parameters.Add(Password_param);
+                    command.ExecuteNonQuery();
+                    Clear();
+                }
+                Manager.connection.Open();
+               
             }
             catch (SqlException er)
             {
@@ -270,17 +310,35 @@ namespace LightningMarks
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Lessons SET Employee_id = @Emp_id_param, Discipline_id = @Disp_id_param, Group_id = @Group_id_param WHERE (Lesson_id = @Lesson_id)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter ID_param = new SqlParameter("@Lesson_id", ID.Text);
-                cmd.Parameters.Add(ID_param);
-                SqlParameter Emp_id_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
-                cmd.Parameters.Add(Emp_id_param);
-                SqlParameter Disp_id_param = new SqlParameter("@Disp_id_param", ID_Discipline.Text);
-                cmd.Parameters.Add(Disp_id_param);
-                SqlParameter Group_id_param = new SqlParameter("@Group_id_param", Group_id.Text);
-                cmd.Parameters.Add(Group_id_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Lessons] WHERE Group_id = @Group_id_param AND Employee_id = @Emp_id_param AND Discipline_id = @Disp_id_param");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Emp_id_Check_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
+                cmd.Parameters.Add(Emp_id_Check_param);
+                SqlParameter Disp_id_Check_param = new SqlParameter("@Disp_id_param", ID_Discipline.Text);
+                cmd.Parameters.Add(Disp_id_Check_param);
+                SqlParameter Group_id_Check_param = new SqlParameter("@Group_id_param", Group_id.Text);
+                cmd.Parameters.Add(Group_id_Check_param);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("Данная запись существует");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "UPDATE dbo.Lessons SET Employee_id = @Emp_id_param, Discipline_id = @Disp_id_param, Group_id = @Group_id_param WHERE (Lesson_id = @Lesson_id)";
+                    SqlCommand command = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter ID_param = new SqlParameter("@Lesson_id", ID.Text);
+                    cmd.Parameters.Add(ID_param);
+                    SqlParameter Emp_id_param = new SqlParameter("@Emp_id_param", Employee_ID_Textbox.Text);
+                    cmd.Parameters.Add(Emp_id_param);
+                    SqlParameter Disp_id_param = new SqlParameter("@Disp_id_param", ID_Discipline.Text);
+                    cmd.Parameters.Add(Disp_id_param);
+                    SqlParameter Group_id_param = new SqlParameter("@Group_id_param", Group_id.Text);
+                    cmd.Parameters.Add(Group_id_param);
+                    cmd.ExecuteNonQuery();
+                    Clear();
+                }
             }
             catch (SqlException er)
             {

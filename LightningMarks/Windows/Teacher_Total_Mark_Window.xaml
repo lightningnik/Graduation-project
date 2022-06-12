@@ -30,5 +30,18 @@
         <CheckBox x:Name="PracticeCheckBox" Content="Практическая работа" HorizontalAlignment="Left" Margin="977,60,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
         <CheckBox x:Name="TestCheckBox"     Content="Тест"                HorizontalAlignment="Left" Margin="977,110,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
         <CheckBox x:Name="QuestionCheckBox"  Content="Опрос"               HorizontalAlignment="Left" Margin="977,160,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <DataGrid x:Name="MarkDataGrid"                                  Margin="0,396,519,131"                                                      VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"                          Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценки"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox HorizontalAlignment="Left" Margin="852,446,0,0" VerticalAlignment="Top" Width="192">
+            <Button Content="Button"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="852,416,0,0" VerticalAlignment="Top" Width="195"/>
+        <Button Content="Выставить коэффициент" HorizontalAlignment="Left" Margin="852,477,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
     </Grid>
 </Window>
