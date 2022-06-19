@@ -37,35 +37,6 @@ namespace LightningMarks.Windows
                 Name_Group_ComboBox.Items.Add(grp_dt.Rows[i]["Name_Group"].ToString());
             }
 
-            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline " +
-                "FROM dbo.Lessons INNER JOIN dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id WHERE Employee_id = @my_id");
-            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
-            disp.Parameters.Add("@my_id", SqlDbType.Int);
-            disp.Parameters["@my_id"].Value = Manager.my_id;
-            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
-            DataTable disp_dt = new DataTable();
-            disp_da.Fill(disp_dt);
-            for (int i = 0; i < disp_dt.Rows.Count; i++)
-            {
-                DisciplineCombobox.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
-            }
-
-            //string CommentString = ("SELECT DISTINCT dbo.Marks.Comment " +
-            //    "FROM dbo.Marks INNER JOIN " +
-            //    "dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id INNER JOIN " +
-            //    "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-            //    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND dbo.Disciplines.Name_Discipline = ");
-            //SqlCommand comm = new SqlCommand(CommentString, Manager.connection);
-            //comm.Parameters.Add("@my_id", SqlDbType.Int);
-            //comm.Parameters["@my_id"].Value = Manager.my_id;
-            //SqlDataAdapter comm_da = new SqlDataAdapter(comm);
-            //DataTable comm_dt = new DataTable();
-            //comm_da.Fill(comm_dt);
-            //for (int i = 0; i < comm_dt.Rows.Count; i++)
-            //{
-            //    DisciplineCombobox.Items.Add(comm_dt.Rows[i]["Comment"].ToString());
-            //}
-
             for (double i = 0.05; i < 1; i += 0.05)
             {
                 Control_work.Items.Add(Math.Round(i, 2));
@@ -101,29 +72,6 @@ namespace LightningMarks.Windows
             Total_Marks_DataGrid.ItemsSource = list_dt.DefaultView;
             Manager.connection.Close();
         }
-
-
-        //private void Name_Group_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    DisciplineCombobox.Items.Clear();
-        //    string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
-        //            "FROM dbo.Lessons INNER JOIN " +
-        //            "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-        //            "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND Name_Group = @NameGroup");
-        //    SqlCommand disp = new SqlCommand(DispString, Manager.connection);
-        //    disp.Parameters.Add("@my_id", SqlDbType.Int);
-        //    disp.Parameters["@my_id"].Value = Manager.my_id;
-        //    SqlParameter Name_Group_param = new SqlParameter("@NameGroup", Name_Group_ComboBox.Text);
-        //    disp.Parameters.Add(Name_Group_param);
-        //    SqlDataAdapter disp_da = new SqlDataAdapter(disp);
-        //    DataTable disp_dt = new DataTable();
-        //    disp_da.Fill(disp_dt);
-        //    for (int i = 0; i < disp_dt.Rows.Count; i++)
-        //    {
-        //        DisciplineCombobox.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
-        //    }
-            
-        //}
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -637,6 +585,74 @@ namespace LightningMarks.Windows
             DataTable list_dt = new DataTable("Average_Mark");
             list_sda.Fill(list_dt);
             MarkDataGrid.ItemsSource = list_dt.DefaultView;
+            Manager.connection.Close();
+        }
+
+        //заполнение combobox дисцпилин по группе
+        private void Name_Group_ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            DisciplineCombobox.Items.Clear();
+            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
+                    "FROM dbo.Lessons INNER JOIN " +
+                    "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
+                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND Name_Group = @NameGroup");
+            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
+            disp.Parameters.Add("@my_id", SqlDbType.Int);
+            disp.Parameters["@my_id"].Value = Manager.my_id;
+            SqlParameter Name_Group_param = new SqlParameter("@NameGroup", Name_Group_ComboBox.Text);
+            disp.Parameters.Add(Name_Group_param);
+            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
+            DataTable disp_dt = new DataTable();
+            disp_da.Fill(disp_dt);
+            for (int i = 0; i < disp_dt.Rows.Count; i++)
+            {
+                DisciplineCombobox.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
+            }
+        }
+
+
+        //Заполнение combobox комментариями по заданной группе и дисциплине
+        private void DisciplineCombobox_DropDownClosed(object sender, EventArgs e)
+        {
+            Comments.Items.Clear();
+            string DispString = ("SELECT DISTINCT dbo.Marks.Comment " +
+                "FROM dbo.Marks INNER JOIN " +
+                "dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id INNER JOIN " +
+                "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
+                "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND dbo.Disciplines.Name_Discipline = @NameDisp AND dbo.Groups.Name_Group = @NameGroup");
+            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
+            disp.Parameters.Add("@my_id", SqlDbType.Int);
+            disp.Parameters["@my_id"].Value = Manager.my_id;
+            SqlParameter Name_Group_param = new SqlParameter("@NameGroup", Name_Group_ComboBox.Text);
+            disp.Parameters.Add(Name_Group_param);
+            SqlParameter Name_Disp_param = new SqlParameter("@NameDisp", DisciplineCombobox.Text);
+            disp.Parameters.Add(Name_Disp_param);
+            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
+            DataTable disp_dt = new DataTable();
+            disp_da.Fill(disp_dt);
+            for (int i = 0; i < disp_dt.Rows.Count; i++)
+            {
+                Comments.Items.Add(disp_dt.Rows[i]["Comment"].ToString());
+            }
+        }
+
+        private void Set_Coeficient_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Manager.connection.Open();
+                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Coefficient = @Coefficient WHERE (dbo.Marks.Comment = @Comment)";
+                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
+                SqlParameter Coefficient_param = new SqlParameter("@Coefficient", Coefficient.Text);
+                cmd.Parameters.Add(Coefficient_param);
+                SqlParameter Comments_param = new SqlParameter("@Comment", Comments.Text);
+                cmd.Parameters.Add(Comments_param);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException er)
+            {
+                MessageBox.Show(er.Number + " " + er.Message);
+            }
             Manager.connection.Close();
         }
     }
