@@ -43,8 +43,8 @@
                 <DataGridTextColumn Binding="{Binding Marks}"                                Header="Оценки"/>
             </DataGrid.Columns>
         </DataGrid>
-        
-        
+
+
 
         <TextBox x:Name="ID_Student"    HorizontalAlignment="Left"      Margin="10,584,0,0"  Text="ID студента"     VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"      Margin="136,584,0,0" Text="ID дисциплины"   VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
@@ -74,7 +74,8 @@
             <ComboBoxItem >Упрощенный вывод</ComboBoxItem>
             <ComboBoxItem >Подробный вывод</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="655,584,0,0" TextWrapping="Wrap" Text="Комментарий" VerticalAlignment="Top" Width="160" Height="82" GotFocus="Comment_GotFocus" LostFocus="Comment_LostFocus"/>
-        
+        <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="655,584,0,0" TextWrapping="Wrap" Text="Комментарий" VerticalAlignment="Top" Width="160" Height="46" GotFocus="Comment_GotFocus" LostFocus="Comment_LostFocus"/>
+        <ComboBox x:Name="CommentCombobox" HorizontalAlignment="Left" Margin="655,635,0,0" VerticalAlignment="Top" Width="160"/>
+
     </Grid>
 </Window>

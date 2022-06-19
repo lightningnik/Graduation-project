@@ -24,6 +24,7 @@ namespace LightningMarks.Windows
         public TeacherWindow()
         {
             InitializeComponent();
+            FillCommentCombobox();
             FillComboBox();
             FillDataGrid();
         }
@@ -34,6 +35,7 @@ namespace LightningMarks.Windows
             ID_Discipline.Text = "ID дисциплины";
             ID.Text = "ID записи";
             Work_ID.Text = "Тип работы";
+            Comment.Text = "Комментарий";
             Date.SelectedDate = null;
             MarkComboBox.SelectedIndex = -1;
         }
@@ -46,6 +48,30 @@ namespace LightningMarks.Windows
             DataTable wrk_dt = new DataTable("Work_Types");
             wrk_sda.Fill(wrk_dt);
             Type_work.ItemsSource = wrk_dt.DefaultView;
+        }
+
+        private void FillCommentCombobox()
+        {
+            Manager.connection.Close(); // КОСТЫЛЬ!!! Без этой строки выдает ошибку, что подключение не закрыто,
+            // при закртытии подключения на странице StartPage
+            Manager.connection.Open();
+            CommentCombobox.Items.Clear();
+            string CommentString = ("SELECT DISTINCT dbo.Marks.Comment, dbo.Lessons.Employee_id, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline " +
+                "FROM dbo.Marks INNER JOIN " +
+                "dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id INNER JOIN dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id INNER JOIN " +
+                "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id " +
+                "WHERE (dbo.Lessons.Employee_id = @my_id)");
+            SqlCommand comm = new SqlCommand(CommentString, Manager.connection);
+            comm.Parameters.Add("@my_id", SqlDbType.Int);
+            comm.Parameters["@my_id"].Value = Manager.my_id;
+            SqlDataAdapter comm_da = new SqlDataAdapter(comm);
+            DataTable comm_dt = new DataTable();
+            comm_da.Fill(comm_dt);
+            for (int i = 0; i < comm_dt.Rows.Count; i++)
+            {
+                CommentCombobox.Items.Add(comm_dt.Rows[i]["Comment"].ToString());
+            }
+            Manager.connection.Close();
         }
 
             private void FillComboBox()
@@ -109,6 +135,7 @@ namespace LightningMarks.Windows
                 MessageBox.Show(er.Number + " " + er.Message);
             }
             ClearFields();
+            FillCommentCombobox();
             Manager.connection.Close();
         }
 
