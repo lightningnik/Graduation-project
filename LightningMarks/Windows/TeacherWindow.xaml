@@ -24,7 +24,7 @@
                 <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MarkDataGrid"                                  Margin="0,323,0,205"                                                      VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged">
+        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
@@ -32,8 +32,19 @@
                 <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценка"/>
                 <DataGridTextColumn Binding="{Binding Date,StringFormat=\{0:dd.MM.yyyy\}}"  Header="Дата"/>
                 <DataGridTextColumn Binding="{Binding Work_Type}"                           Header="Тип работы"/>
+                <DataGridTextColumn Binding="{Binding Comment}"                             Header="Комментарий"/>
             </DataGrid.Columns>
         </DataGrid>
+        <DataGrid x:Name="EasyOutput" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding Patronymic}"                          Header="Отчество"/>
+                <DataGridTextColumn Binding="{Binding Marks}"                                Header="Оценки"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        
 
         <TextBox x:Name="ID_Student"    HorizontalAlignment="Left"      Margin="10,584,0,0"  Text="ID студента"     VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <TextBox x:Name="ID_Discipline" HorizontalAlignment="Left"      Margin="136,584,0,0" Text="ID дисциплины"   VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
@@ -63,6 +74,7 @@
             <ComboBoxItem >Упрощенный вывод</ComboBoxItem>
             <ComboBoxItem >Подробный вывод</ComboBoxItem>
         </ComboBox>
-        <TextBox HorizontalAlignment="Left" Margin="655,584,0,0" TextWrapping="Wrap" Text="Комментарий" VerticalAlignment="Top" Width="160" Height="82"/>
+        <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="655,584,0,0" TextWrapping="Wrap" Text="Комментарий" VerticalAlignment="Top" Width="160" Height="82" GotFocus="Comment_GotFocus" LostFocus="Comment_LostFocus"/>
+        
     </Grid>
 </Window>

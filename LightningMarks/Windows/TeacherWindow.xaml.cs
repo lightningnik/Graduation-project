@@ -88,7 +88,7 @@ namespace LightningMarks.Windows
             try
             {
                 Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id,@WorkType, @Lesson_id, @Mark, @Date)";
+                string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id,@WorkType, @Lesson_id, @Mark, @Date, NULL, @Comment)";
                 SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
                 SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
                 cmd.Parameters.Add(Work_param);
@@ -100,6 +100,8 @@ namespace LightningMarks.Windows
                 cmd.Parameters.Add(Mark_param);
                 SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
                 cmd.Parameters.Add(Date_param);
+                SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
+                cmd.Parameters.Add(Comment_param);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException er)
@@ -115,7 +117,7 @@ namespace LightningMarks.Windows
             try
             {
                 Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id,dbo.Marks.Type_work_id = @WorkType ,dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date WHERE (dbo.Marks.Mark_id = @ID)";
+                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id,dbo.Marks.Type_work_id = @WorkType ,dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date, dbo.Marks.Comment = @Comment WHERE (dbo.Marks.Mark_id = @ID)";
                 SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
                 SqlParameter ID_param = new SqlParameter("@ID", ID.Text);
                 cmd.Parameters.Add(ID_param);
@@ -129,6 +131,8 @@ namespace LightningMarks.Windows
                 cmd.Parameters.Add(Mark_param);
                 SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
                 cmd.Parameters.Add(Date_param);
+                SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
+                cmd.Parameters.Add(Comment_param);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException er)
@@ -206,22 +210,17 @@ namespace LightningMarks.Windows
 
         private void MarksDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (TypeofOutputComboBox.Text == "Подробный вывод") {
-                DataGrid gd = (DataGrid)sender;
-                DataRowView row_selected = gd.SelectedItem as DataRowView;
-                if (row_selected != null)
-                {
-                    ID_Student.Text = row_selected["Student_id"].ToString();
-                    ID_Discipline.Text = row_selected["Lesson_id"].ToString();
-                    ID.Text = row_selected["Mark_id"].ToString();
-                    Work_ID.Text = row_selected["Type_work_id"].ToString();
-                    MarkComboBox.Text = row_selected["Mark"].ToString();
-                    Date.SelectedDate = (System.DateTime)row_selected["Date"];
-                }
-            }
-            else
+            DataGrid gd = (DataGrid)sender;
+            DataRowView row_selected = gd.SelectedItem as DataRowView;
+            if (row_selected != null)
             {
-                MessageBox.Show("Для редактирования оценок сделайте подробный вывод");
+                ID_Student.Text = row_selected["Student_id"].ToString();
+                ID_Discipline.Text = row_selected["Lesson_id"].ToString();
+                ID.Text = row_selected["Mark_id"].ToString();
+                Work_ID.Text = row_selected["Type_work_id"].ToString();
+                MarkComboBox.Text = row_selected["Mark"].ToString();
+                Date.SelectedDate = (System.DateTime)row_selected["Date"];
+                Comment.Text = row_selected["Comment"].ToString();
             }
         }
         private void Type_work_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -270,6 +269,8 @@ namespace LightningMarks.Windows
             DisciplineDataGrid.ItemsSource = disp_dt.DefaultView;
 
             if (TypeofOutputComboBox.Text == "Подробный вывод") {
+                EasyOutput.Visibility = Visibility.Hidden;
+                MarkDataGrid.Visibility = Visibility.Visible;
                 string MrkString = "SELECT * " +
                     "FROM dbo.Mark_Upd WHERE dbo.Mark_Upd.Name_Group = @Name_mrk_Group AND dbo.Mark_Upd.Name_Discipline = @Name_Discipline_mrk";
                 SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
@@ -285,7 +286,9 @@ namespace LightningMarks.Windows
             }
             else if (TypeofOutputComboBox.Text == "Упрощенный вывод")
             {
-                string MrkString = "SELECT        dbo.Students.Surname, dbo.Students.Name, dbo.Students.Patronymic, STRING_AGG(dbo.Marks.Mark, ' ') AS Mark, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline " +
+                MarkDataGrid.Visibility = Visibility.Hidden;
+                EasyOutput.Visibility = Visibility.Visible;
+                string MrkString = "SELECT        dbo.Students.Surname, dbo.Students.Name, dbo.Students.Patronymic, STRING_AGG(dbo.Marks.Mark, ' ') AS Marks, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline " +
                     "FROM dbo.Marks INNER JOIN dbo.Students ON dbo.Marks.Student_id = dbo.Students.Student_id " +
                     "INNER JOIN dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id " +
                     "INNER JOIN dbo.Employees ON dbo.Lessons.Employee_id = dbo.Employees.Employee_id INNER JOIN " +
@@ -301,7 +304,7 @@ namespace LightningMarks.Windows
                 SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
                 DataTable mrk_dt = new DataTable("Mark_Upd");
                 mrk_sda.Fill(mrk_dt);
-                MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
+                EasyOutput.ItemsSource = mrk_dt.DefaultView;
             }
 
             Manager.connection.Close();
@@ -312,6 +315,22 @@ namespace LightningMarks.Windows
             Teacher_Total_Mark_Window totalWindow = new Teacher_Total_Mark_Window();
             totalWindow.Show();
             this.Close();
+        }
+
+        private void Comment_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (Comment.Text == "Комментарий")
+            {
+                Comment.Text = "";
+            }
+        }
+
+        private void Comment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ( Comment.Text == "")
+            {
+               Comment.Text = "Комментарий";
+            }
         }
     }
 }

@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Авторизация" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
-        <TextBox     x:Name="Login"    HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Width="490"/>
-        <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="492"/>
+        <TextBox     x:Name="Login"    HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Width="490" Text ="nestor.artemev@example.net"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="492"  Password="IzzOGBTPk6w7MDI"/>
 
         <Button x:Name="Authorize_Button" Content="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Top" Width="490" Margin="0,271,0,0"  Click="Authorize_Button_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
         <Button x:Name="Hint_Button"      Content="Подсказка"   HorizontalAlignment="Center" VerticalAlignment="Top" Width="490" Margin="0,237,0,0"  Click="Hint_Button_Click"      Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
 
-        <ComboBox x:Name="Status_Check" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top" Width="492" HorizontalContentAlignment="Left">
+        <ComboBox x:Name="Status_Check" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top" Width="492" HorizontalContentAlignment="Left" SelectedIndex="1">
             <TextBlock>Студент</TextBlock>
             <TextBlock>Сотрудник</TextBlock>
         </ComboBox>

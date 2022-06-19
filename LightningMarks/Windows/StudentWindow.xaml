@@ -19,7 +19,7 @@
         </DataGrid>
 
         <Button x:Name="Exit" Content="Выход" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" Click="Exit_Click" Background="#87004B" BorderBrush="#87004B" Foreground="WhiteSmoke"/>
-        <ComboBox x:Name="Name_Discipline" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="506"/>
+        <ComboBox x:Name="Name_Discipline" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="506" SelectionChanged="Name_Discipline_SelectionChanged"/>
 
     </Grid>
 </Window>

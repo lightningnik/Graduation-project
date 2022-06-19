@@ -45,7 +45,7 @@ namespace LightningMarks
             this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Name_Discipline_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Manager.connection.Open();
 
@@ -67,7 +67,6 @@ namespace LightningMarks
             DataTable emp_dt = new DataTable("Marks");
             emp_sda.Fill(emp_dt);
             MarksDataGrid.ItemsSource = emp_dt.DefaultView;
-            Button.Visibility = Visibility.Hidden;
             Manager.connection.Close();
         }
     }
