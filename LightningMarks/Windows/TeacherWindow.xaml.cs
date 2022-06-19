@@ -93,19 +93,7 @@ namespace LightningMarks.Windows
                 Name_Group.Items.Add(dt.Rows[i]["Name_Group"].ToString());
             }
 
-            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline " +
-                "FROM dbo.Lessons INNER JOIN " +
-                "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id WHERE Employee_id = @my_id");
-            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
-            disp.Parameters.Add("@my_id", SqlDbType.Int);
-            disp.Parameters["@my_id"].Value = Manager.my_id;
-            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
-            DataTable disp_dt = new DataTable();
-            disp_da.Fill(disp_dt);
-            for (int i = 0; i < disp_dt.Rows.Count; i++)
-            {
-                Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
-            }
+            
             Manager.connection.Close();
         }
 
@@ -134,6 +122,7 @@ namespace LightningMarks.Windows
             {
                 MessageBox.Show(er.Number + " " + er.Message);
             }
+
             ClearFields();
             FillCommentCombobox();
             Manager.connection.Close();
@@ -223,6 +212,7 @@ namespace LightningMarks.Windows
             {
                 ID_Student.Text = row_selected["Student_id"].ToString();
             }
+            
         }
 
         private void DisciplineDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -358,6 +348,43 @@ namespace LightningMarks.Windows
             {
                Comment.Text = "Комментарий";
             }
+        }
+
+        private void Name_Group_DropDownClosed(object sender, EventArgs e)
+        {
+            Manager.connection.Open();
+            Name_Discipline.Items.Clear()
+;            string DispString = ("SELECT DISTINCT dbo.Disciplines.Name_Discipline, dbo.Groups.Name_Group " +
+                "FROM dbo.Lessons INNER JOIN dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
+                "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE Employee_id = @my_id AND dbo.Groups.Name_Group = @NameGrp");
+            SqlCommand disp = new SqlCommand(DispString, Manager.connection);
+            disp.Parameters.Add("@my_id", SqlDbType.Int);
+            disp.Parameters["@my_id"].Value = Manager.my_id;
+            SqlParameter Name_Group_param = new SqlParameter("@NameGrp", Name_Group.Text);
+            disp.Parameters.Add(Name_Group_param);
+            SqlDataAdapter disp_da = new SqlDataAdapter(disp);
+            DataTable disp_dt = new DataTable();
+            disp_da.Fill(disp_dt);
+            for (int i = 0; i < disp_dt.Rows.Count; i++)
+            {
+                Name_Discipline.Items.Add(disp_dt.Rows[i]["Name_Discipline"].ToString());
+            }
+            Manager.connection.Close();
+        }
+
+        private void DisciplineDataGrid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DisciplineDataGrid.SelectedItem = null;
+        }
+
+        private void GroupListDataGrid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            GroupListDataGrid.SelectedItem = null;
+        }
+
+        private void Type_work_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Type_work.SelectedItem = null;
         }
     }
 }

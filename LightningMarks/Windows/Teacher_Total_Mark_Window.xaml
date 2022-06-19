@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Teacher_Total_Mark_Window" Height="768" Width="1366" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <DataGrid x:Name="Total_Marks_DataGrid" Margin="0,0,519,376" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+        <DataGrid x:Name="Total_Marks_DataGrid" Margin="0,0,519,456" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
@@ -15,7 +15,7 @@
                 <DataGridTextColumn Binding="{Binding TotalMark}"   Header="Оценка"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MarkDataGrid"                                  Margin="0,396,519,131"                                                      VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+        <DataGrid x:Name="MarkDataGrid" Margin="0,396,519,16"  VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>
@@ -23,11 +23,19 @@
                 <DataGridTextColumn Binding="{Binding Mark}"                                Header="Оценки"/>
             </DataGrid.Columns>
         </DataGrid>
+        <DataGrid x:Name="CoefficientDataGrid" Margin="0,396,519,16"  VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Comment}"     Header="Комментарий"/>
+                <DataGridTextColumn Binding="{Binding Coefficient}" Header="Коэффициент"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
 
         <Button x:Name="Average_Mark_button"    Content="Средняя оценка"                HorizontalAlignment="Left" Margin="852,264,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Average_Mark_button_Click"/>
         <Button x:Name="Total_Mark_Button"      Content="Кумулятивная итоговая оценка"  HorizontalAlignment="Left" Margin="852,304,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Total_Mark_Button_Click"/>
         <Button x:Name="Exit"                   Content="Назад"                         HorizontalAlignment="Left" Margin="852,344,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Exit_Click" Cursor="Hand" />
         <Button Content="Выставить коэффициент" HorizontalAlignment="Left" Margin="852,456,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B" Width="256" Click="Set_Coeficient_Click"/>
+        <Button x:Name="Total_Mark_Button_2"      Content="Кумулятивная итоговая оценка"  HorizontalAlignment="Left" Margin="852,493,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Total_Mark_Button_2_Click"/>
 
 
         <ComboBox x:Name="Name_Group_ComboBox"  HorizontalAlignment="Left" Margin="852,198,0,0" VerticalAlignment="Top" Width="256" DropDownClosed="Name_Group_ComboBox_DropDownClosed"/>
@@ -36,17 +44,18 @@
         <ComboBox x:Name="Practice_Work"        HorizontalAlignment="Left" Margin="852,60,0,0"  VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="Test"                 HorizontalAlignment="Left" Margin="852,110,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="Questions"            HorizontalAlignment="Left" Margin="852,160,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="Comments" HorizontalAlignment="Left" Margin="852,396,0,0" VerticalAlignment="Top" Width="195"/>
-        <ComboBox x:Name="Coefficient" HorizontalAlignment="Left" Margin="852,426,0,0" VerticalAlignment="Top" Width="192"/>
+        <ComboBox x:Name="Comments"             HorizontalAlignment="Left" Margin="852,396,0,0" VerticalAlignment="Top" Width="252"/>
+        <ComboBox x:Name="Coefficient_Combobox" HorizontalAlignment="Left" Margin="852,426,0,0" VerticalAlignment="Top" Width="252"/>
+        <ComboBox x:Name="TypeofOutput"         HorizontalAlignment="Left" Margin="0,366,0,0"    VerticalAlignment="Top" Width="212" DropDownClosed="TypeofOutput_DropDownClosed">
+            <TextBlock>Оценки</TextBlock>
+            <TextBlock>Коэффициенты</TextBlock>
+        </ComboBox>
 
+        <CheckBox x:Name="ControlCheckBox"      Content="Контрольная работа"  HorizontalAlignment="Left" Margin="977,10,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="PracticeCheckBox"     Content="Практическая работа" HorizontalAlignment="Left" Margin="977,60,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="TestCheckBox"         Content="Тест"                HorizontalAlignment="Left" Margin="977,110,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
+        <CheckBox x:Name="QuestionCheckBox"     Content="Опрос"               HorizontalAlignment="Left" Margin="977,160,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
 
-
-        <CheckBox x:Name="ControlCheckBox"  Content="Контрольная работа"  HorizontalAlignment="Left" Margin="977,10,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
-        <CheckBox x:Name="PracticeCheckBox" Content="Практическая работа" HorizontalAlignment="Left" Margin="977,60,0,0"  VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
-        <CheckBox x:Name="TestCheckBox"     Content="Тест"                HorizontalAlignment="Left" Margin="977,110,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
-        <CheckBox x:Name="QuestionCheckBox"  Content="Опрос"               HorizontalAlignment="Left" Margin="977,160,0,0" VerticalAlignment="Top" Background="#FF87004B" BorderBrush="#FF87004B"/>
-        <Button x:Name="Total_Mark_Button_2"      Content="Кумулятивная итоговая оценка"  HorizontalAlignment="Left" Margin="852,493,0,0" VerticalAlignment="Top" Width="256" Background="#87004B" BorderBrush="#87004B" Click="Total_Mark_Button_2_Click"/>
-
-
+        <Label    x:Name="AverageCoefficient"     Content="Среднее арифметическое коэффициентов:" HorizontalAlignment="Left" Margin="852,576,0,0" VerticalAlignment="Top" Width="504"/>
     </Grid>
 </Window>

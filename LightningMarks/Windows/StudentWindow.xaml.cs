@@ -20,7 +20,7 @@ namespace LightningMarks
             Manager.connection.Close(); // КОСТЫЛЬ!!! Без этой строки выдает ошибку, что подключение не закрыто,
             // при закртытии подключения на странице StartPage
             Manager.connection.Open();
-            string DispString = ("SELECT        dbo.Disciplines.Name_Discipline " +
+            string DispString = ("SELECT     DISTINCT   dbo.Disciplines.Name_Discipline " +
                 "FROM dbo.Lessons INNER JOIN dbo.Group_List ON dbo.Lessons.Group_id = dbo.Group_List.Group_id INNER JOIN " +
                 "dbo.Students ON dbo.Group_List.Student_id = dbo.Students.Student_id INNER JOIN " +
                 "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id " +
@@ -45,7 +45,7 @@ namespace LightningMarks
             this.Close();
         }
 
-        private void Name_Discipline_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void Name_Discipline_DropDownClosed(object sender, System.EventArgs e)
         {
             Manager.connection.Open();
 

@@ -7,19 +7,19 @@
         mc:Ignorable="d"
         Title="TeacherWindow" Height="800" Width="1366" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="GroupListDataGrid"    Width="683" Height="256" Margin="0,0,0,0"       HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="GroupListDataGrid_SelectionChanged">
+        <DataGrid x:Name="GroupListDataGrid"    Width="683" Height="256" Margin="0,0,0,0"       HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="GroupListDataGrid_SelectionChanged" MouseLeave="GroupListDataGrid_MouseLeave">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"     Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"        Header="Имя"/>
                 <DataGridTextColumn Binding="{Binding Patronymic}"  Header="Отчество"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="DisciplineDataGrid"   Width="382" Height="256" Margin="683,0,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="DisciplineDataGrid_SelectionChanged">
+        <DataGrid x:Name="DisciplineDataGrid"   Width="382" Height="256" Margin="683,0,0,0"     HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="DisciplineDataGrid_SelectionChanged" MouseLeave="DisciplineDataGrid_MouseLeave">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name_Discipline}" Header="Дисциплина"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="Type_work"            Width="301" Height="256" Margin="1065,0,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="Type_work_SelectionChanged">
+        <DataGrid x:Name="Type_work"            Width="301" Height="256" Margin="1065,0,0,0"    HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="Type_work_SelectionChanged" MouseLeave="Type_work_MouseLeave">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
             </DataGrid.Columns>
@@ -62,7 +62,7 @@
         <Button x:Name="TotalMark"          Background="#87004B" BorderBrush="#87004B" Content="Итоги"          HorizontalAlignment="Center"    Margin="0,671,0,0"      VerticalAlignment="Top" Width="184" Click="TotalMark_Click"/>
 
 
-        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="445,256,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Name_Group"       HorizontalAlignment="Left" Margin="445,256,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="Name_Group_DropDownClosed"/>
         <ComboBox x:Name="Name_Discipline"  HorizontalAlignment="Left" Margin="570,256,0,0" VerticalAlignment="Top" Width="204"/>
         <ComboBox x:Name="MarkComboBox"     HorizontalAlignment="Left" Margin="266,584,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem >2</ComboBoxItem>
