@@ -99,24 +99,39 @@ namespace LightningMarks.Windows
 
         private void Set_Mark_Click(object sender, RoutedEventArgs e)
         {
+            Manager.connection.Open();
             try
             {
-                Manager.connection.Open();
-                string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id,@WorkType, @Lesson_id, @Mark, @Date, NULL, @Comment)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
-                cmd.Parameters.Add(Work_param);
-                SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
-                cmd.Parameters.Add(Student_id_param);
-                SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
-                cmd.Parameters.Add(Lesson_id_param);
-                SqlParameter Mark_param = new SqlParameter("@Mark", MarkComboBox.Text);
-                cmd.Parameters.Add(Mark_param);
-                SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
-                cmd.Parameters.Add(Date_param);
-                SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
-                cmd.Parameters.Add(Comment_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Marks] WHERE Student_id = @Student_id AND Comment = @Comment");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Student_id_check_param = new SqlParameter("@Student_id", ID_Student.Text);
+                cmd.Parameters.Add(Student_id_check_param);
+                SqlParameter Comment_check_param = new SqlParameter("@Comment", Comment.Text);
+                cmd.Parameters.Add(Comment_check_param);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("За данную работу оценка была высталенна, пожалуйста, введите другую работу");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "INSERT INTO dbo.Marks VALUES (@Student_id,@WorkType, @Lesson_id, @Mark, @Date, NULL, @Comment)";
+                    SqlCommand cmd1 = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
+                    cmd1.Parameters.Add(Work_param);
+                    SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
+                    cmd1.Parameters.Add(Student_id_param);
+                    SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
+                    cmd1.Parameters.Add(Lesson_id_param);
+                    SqlParameter Mark_param = new SqlParameter("@Mark", MarkComboBox.Text);
+                    cmd1.Parameters.Add(Mark_param);
+                    SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
+                    cmd1.Parameters.Add(Date_param);
+                    SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
+                    cmd1.Parameters.Add(Comment_param);
+                    cmd1.ExecuteNonQuery();
+                }
             }
             catch (SqlException er)
             {
@@ -130,26 +145,41 @@ namespace LightningMarks.Windows
 
         private void Upd_Mark_Click(object sender, RoutedEventArgs e)
         {
+            Manager.connection.Open();
             try
             {
-                Manager.connection.Open();
-                string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id,dbo.Marks.Type_work_id = @WorkType ,dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date, dbo.Marks.Comment = @Comment WHERE (dbo.Marks.Mark_id = @ID)";
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter ID_param = new SqlParameter("@ID", ID.Text);
-                cmd.Parameters.Add(ID_param);
-                SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
-                cmd.Parameters.Add(Student_id_param);
-                SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
-                cmd.Parameters.Add(Work_param);
-                SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
-                cmd.Parameters.Add(Lesson_id_param);
-                SqlParameter Mark_param = new SqlParameter("@Mark", MarkComboBox.Text);
-                cmd.Parameters.Add(Mark_param);
-                SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
-                cmd.Parameters.Add(Date_param);
-                SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
-                cmd.Parameters.Add(Comment_param);
-                cmd.ExecuteNonQuery();
+                string authorization = ("SELECT * FROM [dbo].[Marks] WHERE Student_id = @Student_id AND Comment = @Comment");
+                SqlCommand cmd = new SqlCommand(authorization, Manager.connection);
+                SqlParameter Student_id_check_param = new SqlParameter("@Student_id", ID_Student.Text);
+                cmd.Parameters.Add(Student_id_check_param);
+                SqlParameter Comment_check_param = new SqlParameter("@Comment", Comment.Text);
+                cmd.Parameters.Add(Comment_check_param);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    MessageBox.Show("За данную работу оценка была высталенна, пожалуйста, введите другую работу");
+                }
+                else
+                {
+                    reader.Close();
+                    string addEmp = "UPDATE dbo.Marks SET dbo.Marks.Student_id = @Student_id,dbo.Marks.Type_work_id = @WorkType ,dbo.Marks.Lesson_id = @Lesson_id, dbo.Marks.Mark = @Mark, dbo.Marks.Date = @Date, dbo.Marks.Comment = @Comment WHERE (dbo.Marks.Mark_id = @ID)";
+                    SqlCommand cmd1 = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter ID_param = new SqlParameter("@ID", ID.Text);
+                    cmd1.Parameters.Add(ID_param);
+                    SqlParameter Student_id_param = new SqlParameter("@Student_id", ID_Student.Text);
+                    cmd1.Parameters.Add(Student_id_param);
+                    SqlParameter Work_param = new SqlParameter("@WorkType", Work_ID.Text);
+                    cmd1.Parameters.Add(Work_param);
+                    SqlParameter Lesson_id_param = new SqlParameter("@Lesson_id", ID_Discipline.Text);
+                    cmd1.Parameters.Add(Lesson_id_param);
+                    SqlParameter Mark_param = new SqlParameter("@Mark", MarkComboBox.Text);
+                    cmd1.Parameters.Add(Mark_param);
+                    SqlParameter Date_param = new SqlParameter("@Date", Date.SelectedDate);
+                    cmd1.Parameters.Add(Date_param);
+                    SqlParameter Comment_param = new SqlParameter("@Comment", Comment.Text);
+                    cmd1.Parameters.Add(Comment_param);
+                    cmd1.ExecuteNonQuery();
+                }
             }
             catch (SqlException er)
             {
@@ -385,6 +415,11 @@ namespace LightningMarks.Windows
         private void Type_work_MouseLeave(object sender, MouseEventArgs e)
         {
             Type_work.SelectedItem = null;
+        }
+
+        private void MarkDataGrid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MarkDataGrid.SelectedItem = null;
         }
     }
 }

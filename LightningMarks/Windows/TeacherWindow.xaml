@@ -24,7 +24,7 @@
                 <DataGridTextColumn Binding="{Binding Work_Type}" Header="Тип работы"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged">
+        <DataGrid x:Name="MarkDataGrid" Margin="0,323,0,205" VerticalScrollBarVisibility="Hidden" CanUserReorderColumns="False" CanUserResizeColumns="False" Focusable="False" IsReadOnly="True" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False" AutoGenerateColumns="False"  SelectionChanged="MarksDataGrid_SelectionChanged" MouseLeave="MarkDataGrid_MouseLeave">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}"                             Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Name}"                                Header="Имя"/>

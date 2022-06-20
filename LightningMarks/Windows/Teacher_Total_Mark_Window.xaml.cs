@@ -17,7 +17,30 @@ namespace LightningMarks.Windows
             FillComboBox();
         }
 
-       private void CoefficientShow()
+        private void CoefficientsShow()
+        {
+            CoefficientDataGrid.Visibility = Visibility.Visible;
+            MarkDataGrid.Visibility = Visibility.Hidden;
+            string MrkString = "SELECT DISTINCT dbo.Marks.Coefficient, dbo.Marks.Comment, dbo.Lessons.Employee_id " +
+                "FROM dbo.Marks INNER JOIN " +
+                "dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id INNER JOIN " +
+                "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
+                "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE (dbo.Lessons.Employee_id = @my_id AND dbo.Groups.Name_Group = @Name_mrk_Group AND dbo.Disciplines.Name_Discipline = @Name_Discipline_mrk)";
+            SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
+            mrk.Parameters.Add("@my_id", SqlDbType.Int);
+            mrk.Parameters["@my_id"].Value = Manager.my_id;
+            SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group_ComboBox.Text);
+            mrk.Parameters.Add(Name_Group_mrk_param);
+            SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", DisciplineCombobox.Text);
+            mrk.Parameters.Add(Name_Disicpiline_mrk_param);
+            mrk.ExecuteNonQuery();
+            SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
+            DataTable mrk_dt = new DataTable("Mark_Upd");
+            mrk_sda.Fill(mrk_dt);
+            CoefficientDataGrid.ItemsSource = mrk_dt.DefaultView;
+        }
+
+       private void CoefficientOutput()
         {
             string coefficientCheck = "SELECT        dbo.Students.Surname, dbo.Students.Name, dbo.Students.Patronymic, ROUND(AVG(dbo.Marks.Coefficient), 2) AS Check_Coefficient, dbo.Groups.Name_Group, dbo.Disciplines.Name_Discipline " +
                 "FROM dbo.Students INNER JOIN " +
@@ -612,7 +635,7 @@ namespace LightningMarks.Windows
             }
             if (checkCoefficient != 1)
             {
-                MessageBox.Show("Сумма коэффициентов превышает 1", Convert.ToString(checkCoefficient));
+                MessageBox.Show("Сумма коэффициентов не равна 1", Convert.ToString(checkCoefficient));
             }
             else
             {
@@ -707,7 +730,7 @@ namespace LightningMarks.Windows
             mrk_sda.Fill(mrk_dt);
             MarkDataGrid.ItemsSource = mrk_dt.DefaultView;
 
-            CoefficientShow();
+            CoefficientOutput();
             Manager.connection.Close();
 
         }
@@ -716,15 +739,18 @@ namespace LightningMarks.Windows
         {
             try
             {
-                Manager.connection.Open();
-                string addEmp = ("UPDATE dbo.Marks SET dbo.Marks.Coefficient = @Coefficient WHERE (dbo.Marks.Comment = @Comment)");
-                SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
-                SqlParameter Coefficient_param = new SqlParameter("@Coefficient", Convert.ToDouble(Coefficient_Combobox.Text));
-                cmd.Parameters.Add(Coefficient_param);
-                SqlParameter Comments_param = new SqlParameter("@Comment", Comments.Text);
-                cmd.Parameters.Add(Comments_param);
-                cmd.ExecuteNonQuery();
-                CoefficientShow();
+                if (Comments.SelectedIndex != -1 && Coefficient_Combobox.SelectedIndex != -1) {
+                    Manager.connection.Open();
+                    string addEmp = ("UPDATE dbo.Marks SET dbo.Marks.Coefficient = @Coefficient WHERE (dbo.Marks.Comment = @Comment)");
+                    SqlCommand cmd = new SqlCommand(addEmp, Manager.connection);
+                    SqlParameter Coefficient_param = new SqlParameter("@Coefficient", Convert.ToDouble(Coefficient_Combobox.Text));
+                    cmd.Parameters.Add(Coefficient_param);
+                    SqlParameter Comments_param = new SqlParameter("@Comment", Comments.Text);
+                    cmd.Parameters.Add(Comments_param);
+                    cmd.ExecuteNonQuery();
+                    CoefficientsShow();
+                    CoefficientOutput();
+                }
             }
             catch (SqlException er)
             {
@@ -761,25 +787,7 @@ namespace LightningMarks.Windows
             }
             else
             {
-                CoefficientDataGrid.Visibility = Visibility.Visible;
-                MarkDataGrid.Visibility = Visibility.Hidden;
-                string MrkString = "SELECT DISTINCT dbo.Marks.Coefficient, dbo.Marks.Comment, dbo.Lessons.Employee_id " +
-                    "FROM dbo.Marks INNER JOIN " +
-                    "dbo.Lessons ON dbo.Marks.Lesson_id = dbo.Lessons.Lesson_id INNER JOIN " +
-                    "dbo.Disciplines ON dbo.Lessons.Discipline_id = dbo.Disciplines.Discipline_id INNER JOIN " +
-                    "dbo.Groups ON dbo.Lessons.Group_id = dbo.Groups.Group_id WHERE (dbo.Lessons.Employee_id = @my_id AND dbo.Groups.Name_Group = @Name_mrk_Group AND dbo.Disciplines.Name_Discipline = @Name_Discipline_mrk)";
-                SqlCommand mrk = new SqlCommand(MrkString, Manager.connection);
-                mrk.Parameters.Add("@my_id", SqlDbType.Int);
-                mrk.Parameters["@my_id"].Value = Manager.my_id;
-                SqlParameter Name_Group_mrk_param = new SqlParameter("@Name_mrk_Group", Name_Group_ComboBox.Text);
-                mrk.Parameters.Add(Name_Group_mrk_param);
-                SqlParameter Name_Disicpiline_mrk_param = new SqlParameter("@Name_Discipline_mrk", DisciplineCombobox.Text);
-                mrk.Parameters.Add(Name_Disicpiline_mrk_param);
-                mrk.ExecuteNonQuery();
-                SqlDataAdapter mrk_sda = new SqlDataAdapter(mrk);
-                DataTable mrk_dt = new DataTable("Mark_Upd");
-                mrk_sda.Fill(mrk_dt);
-                CoefficientDataGrid.ItemsSource = mrk_dt.DefaultView;
+                CoefficientsShow();
             }
             Manager.connection.Close();
 
